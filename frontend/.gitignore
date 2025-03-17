@@ -1,0 +1,30 @@
+# Ignorar directorios generales
+/Documents/
+/Downloads/
+/OneDrive/
+/Music/
+/Pictures/
+/Videos/
+/AppData/
+/Contacts/
+/Saved Games/
+/Searches/
+/Desktop/
+
+# Ignorar otros archivos personales
+*.pdf
+*.docx
+*.xlsx
+*.mdf
+*.ldf
+*.bak
+
+# Ignorar archivos o carpetas específicos de otros proyectos
+/Proyectos IT/
+/HotelTP/
+/myApp/
+/prueba/
+/superCanasta/
+/IBM/
+/IntelGraphicsProfiles/
+/Visual Studio Code.lnk

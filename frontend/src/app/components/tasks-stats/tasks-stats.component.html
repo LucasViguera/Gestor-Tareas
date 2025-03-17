@@ -1,1 +1,37 @@
-<p>tasks-stats works!</p>
+<div class="stats-container">
+    <h2>Estadísticas de Tareas</h2>
+  
+    <div class="stats-card">
+      <h3>Total de Tareas</h3>
+      <p>{{ getTotalTasks() }}</p>
+    </div>
+  
+    <div class="stats-card">
+      <h3>Tareas Completadas</h3>
+      <p>{{ getCompletedTasks() }}</p>
+    </div>
+  
+    <div class="stats-card">
+      <h3>Tareas Pendientes</h3>
+      <p>{{ getPendingTasks() }}</p>
+    </div>
+  
+    <div class="chart-container">
+      <h3>Distribución de Tareas</h3>
+      <ngx-charts-pie-chart
+        [view]="view"
+        [results]="multi"
+        [legend]="showLabels"
+        [doughnut]="true">
+      </ngx-charts-pie-chart>
+    </div>
+  
+    <div class="progress-container">
+      <h3>Porcentaje de Tareas Completadas</h3>
+      <div class="progress-bar">
+        <div class="progress" [style.width.%]="getCompletionPercentage()"></div>
+      </div>
+      <p>{{ getCompletionPercentage() }}%</p>
+    </div>
+  </div>
+  

@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+/* styles.css */
+
+/* Personalización de colores y márgenes */
+body {
+    background-color: #f4f6f9;
+  }
+  
+  .card {
+    border-radius: 10px;
+  }
+  
+  .card-body {
+    background-color: #fff;
+    border-radius: 8px;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+  }
+  
+  .btn {
+    border-radius: 5px;
+  }
+  
+  /* Media Queries para mejorar la experiencia en móviles */
+  @media (max-width: 576px) {
+    .navbar .navbar-brand {
+      font-size: 1.2rem;
+    }
+  
+    .task-card {
+      padding: 10px;
+    }
+  }
+  

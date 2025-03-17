@@ -1,1 +1,28 @@
-<p>tasks-list works!</p>
+<div class="tasks-container">
+  <h2>Lista de Tareas</h2>
+
+  <div class="task-list">
+    <div *ngFor="let task of tasks" class="task-item" [class.completed]="task.completed">
+      <div class="task-details">
+        <h3>{{ task.name }}</h3>
+        <p>{{ task.details }}</p>
+      </div>
+      <div class="task-actions">
+        <button (click)="toggleCompletion(task.id)" [ngClass]="{ 'completed-btn': task.completed, 'incomplete-btn': !task.completed }">
+          {{ task.completed ? 'Marcar como incompleta' : 'Marcar como completada' }}
+        </button>
+        <button class="btn btn-danger" (click)="deleteTask(task.id)">
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="add-task">
+    <input #taskName placeholder="Nombre de la tarea" />
+    <input #taskDetails placeholder="Detalles de la tarea" />
+    <button (click)="addTask(taskName.value, taskDetails.value)">
+      Agregar tarea
+    </button>
+  </div>
+</div>

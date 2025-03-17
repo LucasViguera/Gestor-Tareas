@@ -1,1 +1,53 @@
-<p>calendar works!</p>
+<div class="calendar-container">
+  <h2>Calendario</h2>
+  
+  <!-- Mostrar eventos -->
+  <div *ngFor="let event of events" class="event">
+    <h3>{{ event.title }}</h3>
+    <p>{{ event.date }}</p>
+  </div>
+  
+  <!-- Formulario para agregar un nuevo evento -->
+  <div class="form-container">
+    <h3>Añadir nuevo evento</h3>
+    <form (ngSubmit)="addEvent()" #eventForm="ngForm">
+      <div class="form-group">
+        <label for="title">Título</label>
+        <input 
+          type="text" 
+          id="title" 
+          [(ngModel)]="newEventTitle" 
+          name="title" 
+          class="form-control" 
+          required
+          #titleField="ngModel"
+        />
+        <div *ngIf="titleField.invalid && titleField.touched" class="error-message">
+          El título es obligatorio.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="date">Fecha</label>
+        <input 
+          type="date" 
+          id="date" 
+          [(ngModel)]="newEventDate" 
+          name="date" 
+          class="form-control" 
+          required
+          #dateField="ngModel"
+        />
+        <div *ngIf="dateField.invalid && dateField.touched" class="error-message">
+          La fecha es obligatoria.
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="eventForm.invalid">Añadir evento</button>
+    </form>
+  </div>
+</div>

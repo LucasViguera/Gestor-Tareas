@@ -1,1 +1,42 @@
-<p>tasks-create works!</p>
+<div class="task-create-container">
+  <h2>Crear nueva tarea</h2>
+
+  <form (ngSubmit)="onSubmit()" #taskForm="ngForm">
+    <div class="form-group">
+      <label for="taskName">Nombre de la tarea</label>
+      <input 
+        type="text" 
+        id="taskName" 
+        name="taskName" 
+        [(ngModel)]="taskName" 
+        class="form-control" 
+        required
+        #taskNameField="ngModel"
+      />
+      <div *ngIf="taskNameField.invalid && taskNameField.touched" class="error-message">
+        El nombre de la tarea es obligatorio.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="taskDetails">Detalles de la tarea</label>
+      <textarea 
+        id="taskDetails" 
+        name="taskDetails" 
+        [(ngModel)]="taskDetails" 
+        class="form-control" 
+        required
+        #taskDetailsField="ngModel"
+      ></textarea>
+      <div *ngIf="taskDetailsField.invalid && taskDetailsField.touched" class="error-message">
+        Los detalles de la tarea son obligatorios.
+      </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="taskForm.invalid">Crear tarea</button>
+  </form>
+</div>

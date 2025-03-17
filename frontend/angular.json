@@ -11,28 +11,29 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
-          "options": {
-            "outputPath": "dist/frontend",
-            "index": "src/index.html",
-            "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
-            "tsConfig": "tsconfig.app.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
+              "builder": "@angular-devkit/build-angular:browser",
+              "options": {
+                "outputPath": "dist/frontend",
+                "index": "src/index.html",
+                "main": "src/main.ts", 
+                "polyfills": [
+                  "zone.js"
+                ],
+                "tsConfig": "tsconfig.app.json",
+                "assets": [
+                  {
+                    "glob": "**/*",
+                    "input": "public"
+                  }
+                ],
+                "styles": [
+                  "src/styles.css",
+                  "node_modules/bootstrap/dist/css/bootstrap.min.css"
+                ],
+                "scripts": []
+              },
+              "configurations": {
+              "production": {
               "budgets": [
                 {
                   "type": "initial",
@@ -85,7 +86,7 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css", "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": []
           }

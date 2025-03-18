@@ -8,13 +8,13 @@ import { AdminComponent } from './components/admin/admin.component';
 import { LoginComponent } from './components/login/login.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'task-create', component: TaskCreateComponent },
   { path: 'task', component: TaskComponent },
   { path: 'calendar', component: CalendarComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'login', component: LoginComponent },
-  { path: '**', redirectTo: '' },
+  { path: '**', redirectTo: 'home' },
 ];
 
 @NgModule({

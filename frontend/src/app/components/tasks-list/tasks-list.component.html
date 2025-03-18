@@ -1,8 +1,40 @@
-<div>
-  <h3>Listado de Tareas</h3>
-  <ul>
-    <li *ngFor="let task of tasks; let i = index">
-      <strong>{{ task.name }}</strong>: {{ task.details }}
-    </li>
-  </ul>
-</div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tareas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Lista de Tareas</h2>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h4>Pendientes</h4>
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between">
+                        Tarea 1 <span class="badge bg-warning">Pendiente</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        Tarea 2 <span class="badge bg-warning">Pendiente</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h4>Completadas</h4>
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between">
+                        Tarea 3 <span class="badge bg-success">Completada</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        Tarea 4 <span class="badge bg-success">Completada</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

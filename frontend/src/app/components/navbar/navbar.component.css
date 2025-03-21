@@ -1,0 +1,65 @@
+/* Estilos generales para el navbar */
+.navbar {
+    background-color: #333; /* Gris oscuro para el fondo del navbar */
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    transition: all 0.3s ease;
+}
+
+/* Estilo de los enlaces */
+.navbar-dark .navbar-nav .nav-link {
+    color: #F1F1F1; /* Blanco suave para los enlaces */
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s ease, transform 0.3s ease; /* Transición suave */
+}
+
+/* Color de los enlaces cuando están activos */
+.navbar-dark .navbar-nav .nav-link.active {
+    color: #8D8D8D; /* Gris más oscuro para el enlace activo */
+}
+
+/* Hover en los enlaces */
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #5A5A5A; /* Gris intermedio en hover */
+    transform: scale(1.05); /* Efecto de zoom */
+}
+
+/* Estilo del logo */
+.navbar .navbar-brand {
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #F1F1F1; /* Blanco suave para el texto del logo */
+    transition: color 0.3s ease;
+}
+
+/* Efecto hover en el logo */
+.navbar .navbar-brand:hover {
+    color: #D1D1D1; /* Gris muy suave en hover */
+}
+
+/* Estilos del botón de menú en dispositivos móviles */
+.navbar-toggler {
+    border: none;
+    background-color: #8D8D8D; /* Gris intermedio para el botón de menú */
+}
+
+.navbar-toggler-icon {
+    background-color: #F1F1F1; /* Blanco suave para las líneas del menú */
+}
+
+/* Estilo del navbar en dispositivos pequeños */
+@media (max-width: 768px) {
+    .navbar-collapse {
+        background-color: #333; /* Fondo gris oscuro para el menú en dispositivos pequeños */
+    }
+    .navbar-nav {
+        flex-direction: column; /* Columna en lugar de fila */
+        align-items: center;
+    }
+    .nav-item {
+        margin: 10px 0;
+    }
+}

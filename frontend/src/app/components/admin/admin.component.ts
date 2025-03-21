@@ -1,14 +1,17 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-admin',
-  standalone:true,
-  imports: [CommonModule, FormsModule],
+  selector: 'app-admin-panel',
   templateUrl: './admin.component.html',
-  styleUrl: './admin.component.css'
+  standalone:true,
+  styleUrls: ['./admin.component.css']
 })
 export class AdminComponent {
+  manageUsers() {
+    console.log('Gestionando usuarios');
+  }
 
+  viewReports() {
+    console.log('Viendo reportes');
+  }
 }

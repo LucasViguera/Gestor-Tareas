@@ -1,0 +1,92 @@
+/* Estilos generales para el formulario */
+.login-form {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 50px auto;
+  font-family: Arial, sans-serif;
+}
+
+/* Título del formulario (si lo tienes) */
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  color: #2d3a3a;
+}
+
+
+
+/* Estilo para los grupos de campos del formulario */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Estilo para las etiquetas de los campos */
+.form-label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #444;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* Estilo para los campos de entrada (input) */
+.form-input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #333;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+/* Estilo para los campos de entrada cuando están enfocados */
+.form-input:focus {
+  border-color: #4CAF50; /* Verde cuando el campo es enfocado */
+  outline: none;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+/* Estilo para los mensajes de error */
+.error-message {
+  color: #e74c3c; /* Rojo para los errores */
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+/* Estilo para los botones */
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4CAF50; /* Verde */
+  color: white;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Cambio de color del botón al pasar el mouse */
+.submit-button:hover {
+  background-color: #45a049; /* Color más oscuro al hacer hover */
+}
+
+/* Estilo para el botón cuando está deshabilitado */
+.submit-button:disabled {
+  background-color: #c8e6c9; /* Gris claro cuando está deshabilitado */
+  cursor: not-allowed;
+}

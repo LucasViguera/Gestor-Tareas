@@ -1,10 +1,10 @@
 <div class="task-create-container">
-  <h2 class="text-center mb-4">📋 Crear Nueva Tarea</h2>
+  <h2 class="text-center mb-4"> Crear Nueva Tarea</h2>
 
   <form (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm" class="task-form">
     <!-- Campo Nombre de la tarea -->
     <div class="form-group">
-      <label for="title">📌 Nombre de la tarea</label>
+      <label for="title"> Nombre de la tarea</label>
       <input 
         type="text" 
         id="title" 
@@ -16,13 +16,13 @@
         #titleField="ngModel"
       />
       <div *ngIf="titleField.invalid && titleField.touched" class="error-message">
-        ⚠️ El nombre de la tarea es obligatorio.
+         El nombre de la tarea es obligatorio.
       </div>
     </div>
 
     <!-- Campo Descripción -->
     <div class="form-group">
-      <label for="description">📝 Descripción de la tarea</label>
+      <label for="description"> Descripción de la tarea</label>
       <textarea 
         id="description" 
         name="description" 
@@ -34,13 +34,13 @@
         #descriptionField="ngModel"
       ></textarea>
       <div *ngIf="descriptionField.invalid && descriptionField.touched" class="error-message">
-        ⚠️ Los detalles de la tarea son obligatorios.
+        Los detalles de la tarea son obligatorios.
       </div>
     </div>
 
     <!-- Campo Fecha de inicio -->
     <div class="form-group">
-      <label for="startDate">📅 Fecha de inicio</label>
+      <label for="startDate"> Fecha de inicio</label>
       <input 
         type="date" 
         id="startDate" 
@@ -53,7 +53,7 @@
 
     <!-- Campo Fecha de fin -->
     <div class="form-group">
-      <label for="endDate">📅 Fecha de fin</label>
+      <label for="endDate">Fecha de fin</label>
       <input 
         type="date" 
         id="endDate" 
@@ -66,7 +66,7 @@
 
     <!-- Campo Prioridad -->
     <div class="form-group">
-      <label for="priority">🔴 Prioridad</label>
+      <label for="priority">Prioridad</label>
       <select 
         id="priority" 
         name="priority" 
@@ -82,7 +82,7 @@
 
     <!-- Campo Asignado a -->
     <div class="form-group">
-      <label for="assignee">👥 Asignar a</label>
+      <label for="assignee"> Asignar a</label>
       <select 
         id="assignee" 
         name="assignee" 
@@ -101,7 +101,7 @@
 
     <!-- Botón de enviar -->
     <button type="submit" class="btn btn-primary w-100 mt-3" [disabled]="taskForm.invalid">
-      ➕ Crear tarea
+      Crear tarea
     </button>
   </form>
 </div>

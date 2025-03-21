@@ -1,8 +1,15 @@
-<!-- home.component.html -->
-<div class="container py-5">
-    <section class="tasks-summary text-center mt-5">
-      <h1>Bienvenido al Gestor de Tareas</h1>
-      <p>Aquí puedes ver y gestionar tus tareas pendientes.</p>
-    </section>
+<div class="home-container">
+  <div class="welcome-message">
+    <h2>Bienvenido a tu Gestor de Tareas</h2>
+    <p>Comienza a organizar y gestionar tus tareas de forma eficiente</p>
   </div>
-  
+
+  <div class="buttons-container">
+    <button class="login-btn" (click)="goToLogin()">Iniciar sesión</button>
+    <button class="register-btn" (click)="goToRegister()">Registrarse</button>
+  </div>
+
+  <div class="footer">
+    <p>&copy; 2025 Gestor de Tareas. Todos los derechos reservados.</p>
+  </div>
+</div>

@@ -1,29 +1,21 @@
 // src/app/services/user.service.ts
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment'; // Para URL base de la API
-import { AuthService } from './auth.service'; // Importamos el servicio de autenticación
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class UserService {
 
-  // URL de la API donde se obtienen los usuarios
-  private apiUrl = `${environment.apiUrl}/users`; // Cambia según tu URL base
+  // Aquí debe ir la URL de la API de tu backend, no la URL de la base de datos
+  private apiUrl = 'http://localhost:3000/users';  // Cambia esta URL a la correcta
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient) { }
 
-  // Método para obtener todos los usuarios (con token de autenticación)
+  // Método para obtener todos los usuarios
   getUsers(): Observable<any[]> {
-    const token = this.authService.getToken(); // Obtenemos el token del servicio de autenticación
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`, // Añadimos el token a los headers
-    });
-
-    return this.http.get<any[]>(this.apiUrl, { headers });
+    return this.http.get<any[]>(this.apiUrl);
   }
 }

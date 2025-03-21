@@ -1,0 +1,44 @@
+/* Contenedor principal de la página de inicio */
+.home-container {
+    background-color: #F5F5F5; /* Fondo gris claro */
+    color: #333; /* Texto en gris oscuro para buena legibilidad */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Título principal */
+.home-container h2 {
+    color: #333; /* Gris oscuro para el título */
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Estilos para los botones */
+.home-container button {
+    background-color: #E0E0E0; /* Gris suave para los botones */
+    color: #333; /* Texto gris oscuro */
+    font-size: 1.1rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover en los botones */
+.home-container button:hover {
+    background-color: #D1D1D1; /* Gris intermedio cuando el cursor pasa por encima */
+    transform: translateY(-3px); /* Efecto de elevación */
+}
+
+/* Efecto activo en los botones */
+.home-container button:active {
+    transform: translateY(0); /* Cuando se presiona el botón */
+}

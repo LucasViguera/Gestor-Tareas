@@ -1,17 +1,17 @@
-import express from 'express';
-import authRoutes from './src/routes/auth.routes.js';
-import userRoutes from './src/routes/user.routes.js';
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import authRoutes from "./src/routes/auth.routes.js"; // Importamos las rutas
 
+dotenv.config();
 const app = express();
 
-app.use(express.json());  // Middleware para parsear el cuerpo de la solicitud como JSON
+// Middlewares
+app.use(express.json());
+app.use(cors());
 
 // Rutas
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
+app.use("/api/auth", authRoutes);
 
-// Inicializar el servidor
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server corriendo en el puerto ${PORT}`);
-});
+// Servidor corriendo
+app.listen(3000, () => console.log("Servidor corriendo en http://localhost:3000"));

@@ -1,11 +1,9 @@
-// src/app/components/task-create/task-create.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/task.model';
-import { UserService } from '../../services/user.service'; // Importar el servicio UserService
-import { AuthService } from '../../services/auth.service'; // Importar el servicio AuthService
+import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -21,16 +19,16 @@ export class TaskCreateComponent implements OnInit {
   startDate: string = '';
   endDate: string = '';
   priority: string = 'media';
-  assignee: string = '';
+  assignee: string = '';  // Asegúrate de que 'assignee' esté correctamente definido
   userId: number = 0;
   errorMessage: string | null = null;
 
-  users: any[] = []; // Definir la propiedad users
+  users: any[] = [];
 
   constructor(
     private taskService: TaskService,
-    private userService: UserService, // Inyectar el UserService
-    private authService: AuthService // Inyectar el AuthService
+    private userService: UserService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -39,16 +37,18 @@ export class TaskCreateComponent implements OnInit {
       return;
     }
 
-    // Llamar al servicio para obtener los usuarios cuando se cargue el componente
-    this.userService.getUsers().subscribe(
-      (response: any) => {
-        this.users = response; // Asignar la lista de usuarios a la propiedad 'users'
+    this.userService.getUsers().subscribe({
+      next: (response: any[]) => {
+        this.users = response;
       },
-      (error: any) => {
+      error: (error: any) => {
         console.error('Error al obtener usuarios:', error);
         this.errorMessage = 'Hubo un problema al cargar los usuarios.';
+      },
+      complete: () => {
+        console.log('La solicitud de carga de usuarios ha finalizado.');
       }
-    );
+    });
   }
 
   onSubmit(taskForm: NgForm) {
@@ -59,22 +59,25 @@ export class TaskCreateComponent implements OnInit {
         startDate: this.startDate,
         endDate: this.endDate,
         priority: this.priority,
-        assignee: this.assignee,
-        userId: this.userId // Usar el userId seleccionado para la tarea
+        assignee: this.assignee,  // Asegúrate de que 'assignee' sea correctamente asignado
+        userId: this.userId
       };
 
-      // Usar el servicio para guardar la tarea
-      this.taskService.saveTask(newTask).subscribe(
-        (response: any) => {
+      this.taskService.saveTask(newTask).subscribe({
+        next: (response: any) => {
           console.log('Tarea creada:', response);
           taskForm.resetForm();
           this.errorMessage = null;
         },
-        (error: any) => {
+        error: (error: any) => {
           console.error('Error al crear tarea:', error);
           this.errorMessage = 'Ocurrió un error al crear la tarea. Intenta nuevamente.';
+        },
+        complete: () => {
+          console.log('La solicitud de creación de tarea ha finalizado.');
         }
-      );
+      });
+      
     } else {
       this.errorMessage = 'Por favor, completa todos los campos antes de crear la tarea.';
     }

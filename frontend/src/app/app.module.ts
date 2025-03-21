@@ -1,25 +1,39 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { AppRoutingModule } from './app-routing.module'; // Importamos el módulo de rutas
+import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
-import { TaskComponent } from './components/tasks-list/tasks-list.component';  // Importa el componente de listado de tareas
-import { TaskService } from './task.service';  // Importa el servicio de tareas
-import { TaskCreateComponent } from './components/task-create/tasks-create.component';
+import { provideHttpClient } from '@angular/common/http';
+
+// Importación de componentes standalone
 import { HomeComponent } from './components/home/home.component';
+import { TaskComponent } from './components/tasks-list/tasks-list.component';
+
+// Angular Material Modules
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// Servicios
+import { TaskService } from './task.service';
 
 @NgModule({
-  declarations: [
-  ], // No necesitamos declarar componentes standalone aquí
   imports: [
     BrowserModule,
-    AppRoutingModule,  // Usamos AppRoutingModule para las rutas
-    RouterModule,      // RouterModule también para manejar las rutas en general
-    HomeComponent,
-    FormsModule,
-    TaskCreateComponent,
-    TaskComponent,
+    AppRoutingModule,  // Módulo de rutas principal
+    RouterModule,      // Manejo de rutas
+    FormsModule,       // Manejo de formularios
+    HomeComponent,     // Componente de inicio // 
+    TaskComponent,      // Componente de lista de tareas
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    BrowserAnimationsModule
   ],
-  providers: [TaskService],
+  providers: [
+    TaskService,         // Servicio de tareas
+    provideHttpClient(), // Alternativa moderna a HttpClientModule
+  ],
 })
 export class AppModule {}

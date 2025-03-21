@@ -11,6 +11,14 @@
 /Searches/
 /Desktop/
 
+
+# Ignorar archivos de caché
+*.log
+*.tmp
+node_modules/
+dist/
+
+
 # Ignorar otros archivos personales
 *.pdf
 *.docx

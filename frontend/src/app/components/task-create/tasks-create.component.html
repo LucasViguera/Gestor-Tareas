@@ -1,42 +1,107 @@
 <div class="task-create-container">
-  <h2>Crear nueva tarea</h2>
+  <h2 class="text-center mb-4">📋 Crear Nueva Tarea</h2>
 
-  <form (ngSubmit)="onSubmit()" #taskForm="ngForm">
+  <form (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm" class="task-form">
+    <!-- Campo Nombre de la tarea -->
     <div class="form-group">
-      <label for="taskName">Nombre de la tarea</label>
+      <label for="title">📌 Nombre de la tarea</label>
       <input 
         type="text" 
-        id="taskName" 
-        name="taskName" 
-        [(ngModel)]="taskName" 
-        class="form-control" 
+        id="title" 
+        name="title" 
+        [(ngModel)]="title" 
+        class="form-control"
+        placeholder="Ej: Reunión de equipo" 
         required
-        #taskNameField="ngModel"
+        #titleField="ngModel"
       />
-      <div *ngIf="taskNameField.invalid && taskNameField.touched" class="error-message">
-        El nombre de la tarea es obligatorio.
+      <div *ngIf="titleField.invalid && titleField.touched" class="error-message">
+        ⚠️ El nombre de la tarea es obligatorio.
       </div>
     </div>
 
+    <!-- Campo Descripción -->
     <div class="form-group">
-      <label for="taskDetails">Detalles de la tarea</label>
+      <label for="description">📝 Descripción de la tarea</label>
       <textarea 
-        id="taskDetails" 
-        name="taskDetails" 
-        [(ngModel)]="taskDetails" 
-        class="form-control" 
+        id="description" 
+        name="description" 
+        [(ngModel)]="description" 
+        class="form-control"
+        placeholder="Describe los detalles de la tarea..."
+        rows="3"
         required
-        #taskDetailsField="ngModel"
+        #descriptionField="ngModel"
       ></textarea>
-      <div *ngIf="taskDetailsField.invalid && taskDetailsField.touched" class="error-message">
-        Los detalles de la tarea son obligatorios.
+      <div *ngIf="descriptionField.invalid && descriptionField.touched" class="error-message">
+        ⚠️ Los detalles de la tarea son obligatorios.
       </div>
     </div>
 
-    <div *ngIf="errorMessage" class="alert alert-danger">
+    <!-- Campo Fecha de inicio -->
+    <div class="form-group">
+      <label for="startDate">📅 Fecha de inicio</label>
+      <input 
+        type="date" 
+        id="startDate" 
+        name="startDate" 
+        [(ngModel)]="startDate" 
+        class="form-control"
+        required
+      />
+    </div>
+
+    <!-- Campo Fecha de fin -->
+    <div class="form-group">
+      <label for="endDate">📅 Fecha de fin</label>
+      <input 
+        type="date" 
+        id="endDate" 
+        name="endDate" 
+        [(ngModel)]="endDate" 
+        class="form-control"
+        required
+      />
+    </div>
+
+    <!-- Campo Prioridad -->
+    <div class="form-group">
+      <label for="priority">🔴 Prioridad</label>
+      <select 
+        id="priority" 
+        name="priority" 
+        [(ngModel)]="priority" 
+        class="form-control"
+        required
+      >
+        <option value="baja">Baja</option>
+        <option value="media">Media</option>
+        <option value="alta">Alta</option>
+      </select>
+    </div>
+
+    <!-- Campo Asignado a -->
+    <div class="form-group">
+      <label for="assignee">👥 Asignar a</label>
+      <select 
+        id="assignee" 
+        name="assignee" 
+        [(ngModel)]="assignee" 
+        class="form-control"
+        required
+      >
+        <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+      </select>
+    </div>
+
+    <!-- Mensaje de error -->
+    <div *ngIf="errorMessage" class="alert alert-danger text-center">
       {{ errorMessage }}
     </div>
 
-    <button type="submit" class="btn btn-primary" [disabled]="taskForm.invalid">Crear tarea</button>
+    <!-- Botón de enviar -->
+    <button type="submit" class="btn btn-primary w-100 mt-3" [disabled]="taskForm.invalid">
+      ➕ Crear tarea
+    </button>
   </form>
 </div>

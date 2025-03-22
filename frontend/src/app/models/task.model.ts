@@ -5,7 +5,6 @@ export interface Task {
   startDate: string;      // Fecha de inicio
   endDate: string;        // Fecha de finalización
   priority: string;       // Prioridad (baja, media, alta)
-  assignee: number;       // ID del usuario asignado
-  userId: number;         // ID del usuario que crea la tarea
+  assigneeId: number | null; 
   completed: boolean;     // Estado de la tarea (completada o no)
 }

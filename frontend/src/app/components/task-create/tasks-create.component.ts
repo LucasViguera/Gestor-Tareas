@@ -70,16 +70,16 @@ export class TaskCreateComponent implements OnInit {
     // Permitir enviar el formulario incluso si no hay asignado
     if (taskForm.valid) {
       // Si no hay un usuario asignado, dejar el campo 'assignee' como null
-      const newTask: Omit<Task, 'id'> = {  // Omitimos 'id' aquí
+      const newTask: Omit<Task, 'id' | 'assignee'> & { assigneeId: number | null } = {
         title: this.title,
         description: this.description,
         startDate: this.startDate,
         endDate: this.endDate,
         priority: this.priority,
-        assignee: this.assignee || null, // Si no hay asignado, establecerlo como null
-        userId: this.userId!, // Aquí usamos '!' para asegurar que no sea null
+        assigneeId: this.assignee ? this.assignee.id : null,  // Usar assigneeId en lugar de assignee
         completed: this.completed,
-      };
+    };
+    
   
       this.taskService.saveTask(newTask).subscribe({
         next: (response: any) => {

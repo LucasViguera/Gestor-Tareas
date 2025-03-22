@@ -84,26 +84,19 @@
     <div class="form-group">
       <label for="assignee">Asignado a</label>
       <select 
-        id="assignee" 
-        [(ngModel)]="assignee" 
-        name="assignee" 
-        #assigneeField="ngModel"
-        class="form-control"
-      >
-        <option value="" disabled>Selecciona un usuario</option>
-        <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
-      </select>
-      <div *ngIf="assigneeField.invalid && assigneeField.touched" class="error-message">
-        Este campo es obligatorio.
-      </div>
+      id="assignee" 
+      [(ngModel)]="assignee" 
+      name="assignee" 
+      class="form-control"
+      required
+    >
+      <option value="" disabled>Selecciona un usuario</option>
+      <option *ngFor="let user of users" [value]="user.id">{{ user.username }}</option>
+    </select>
+    <div *ngIf="taskForm.submitted && !assignee" class="error-message">
+      Este campo es obligatorio.
     </div>
-
-    <!-- Mostrar los usuarios cargados -->
-    <div *ngIf="users.length > 0">
-      <h3>Usuarios Cargados:</h3>
-      <ul>
-        <li *ngFor="let user of users">{{ user.email }}</li>
-      </ul>
+    
     </div>
 
     <!-- Mostrar un mensaje de carga si los usuarios están siendo obtenidos -->

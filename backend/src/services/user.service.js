@@ -1,74 +1,72 @@
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import prisma from '../../prisma/prismaClient.js';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { handleError } from '../utils/errorhandler.js';
 
 
-// Función para crear un nuevo usuario
+
+// Crear un nuevo usuario
 async function createUser(req, res) {
-  const { email, password, name } = req.body;
+  const { email, password, username } = req.body;
 
-  // Verificar si el usuario ya existe
-  const userExists = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  });
+  try {
+    const existingUser = await prisma.user.findUnique({ where: { email } });
+    if (existingUser) return res.status(400).json({ error: 'El usuario ya existe' });
 
-  if (userExists) {
-    return res.status(400).json({ message: 'El usuario ya existe' });
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = await prisma.user.create({
+      data: { email, password: hashedPassword, username },
+    });
+
+    res.status(201).json({ message: 'Usuario creado correctamente', user: newUser });
+  } catch (error) {
+    handleError(res, 'Error al crear el usuario');
   }
-
-  // Crear el nuevo usuario
-  const newUser = await prisma.user.create({
-    data: {
-      email,
-      password,  // Asume que ya has hasheado la contraseña antes de almacenarla
-      name,
-    },
-  });
-
-  res.status(201).json({ message: 'Usuario creado correctamente', user: newUser });
 }
 
-// Función para iniciar sesión
+// Iniciar sesión
 async function loginUser(req, res) {
   const { email, password } = req.body;
 
-  // Buscar al usuario por su correo
-  const user = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  });
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return res.status(400).json({ error: 'Credenciales inválidas' });
+    }
 
-  if (!user || user.password !== password) {  // Asegúrate de comparar la contraseña hasheada
-    return res.status(400).json({ message: 'Credenciales inválidas' });
+    const token = jwt.sign(
+      { id: user.id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    res.json({ message: 'Inicio de sesión exitoso', token });
+  } catch (error) {
+    handleError(res, 'Error al iniciar sesión');
   }
-
-  // Crear un token JWT
-  const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-  res.json({ message: 'Inicio de sesión exitoso', token });
 }
 
-// Función para obtener todos los usuarios
+// Obtener todos los usuarios
 async function getAllUsers(req, res) {
-  const users = await prisma.user.findMany();
-  res.json({ users });
+  try {
+    const users = await prisma.user.findMany();
+    res.json({ users });
+  } catch (error) {
+    handleError(res, 'Error al obtener los usuarios');
+  }
 }
 
-// Función para obtener los datos del usuario autenticado
+// Obtener datos del usuario autenticado
 async function getUserData(req, res) {
-  const user = await prisma.user.findUnique({
-    where: {
-      id: req.user.id,  // Usamos el ID del usuario del token JWT
-    },
-  });
+  try {
+    const user = await prisma.user.findUnique({ where: { id: req.user.userId } });
+    if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
 
-  if (!user) {
-    return res.status(404).json({ message: 'Usuario no encontrado' });
+    res.json({ user });
+  } catch (error) {
+    handleError(res, 'Error al obtener los datos del usuario');
   }
-
-  res.json({ user });
 }
 
 export { createUser, loginUser, getAllUsers, getUserData };

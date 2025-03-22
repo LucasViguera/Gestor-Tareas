@@ -1,25 +1,25 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
+// Middleware para autenticar el token JWT
 const authenticateToken = (req, res, next) => {
-  // Obtener el token del header Authorization
-  const token = req.header('Authorization')?.split(' ')[1];
+  const authHeader = req.header("Authorization");
+  if (!authHeader) {
+    return res.status(401).json({ error: "No se proporcionó un token" });
+  }
 
-  // Si no hay token, respondemos con un error de acceso no autorizado
+  const token = authHeader.split(" ")[1]; // "Bearer <token>"
   if (!token) {
-    return res.status(401).json({ message: 'Acceso no autorizado' });
+    return res.status(401).json({ error: "Token no proporcionado" });
   }
 
   // Verificar el token
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    // Si el token no es válido o ha expirado, retornamos un error
     if (err) {
-      return res.status(403).json({ message: 'Token inválido o expirado' });
+      return res.status(403).json({ error: "Token inválido o expirado" });
     }
 
-    // Adjuntar la información del usuario al objeto request para que se pueda usar en el siguiente middleware
+    // Almacenar los datos del usuario decodificados en `req.user`
     req.user = user;
-
-    // Llamamos al siguiente middleware o función (en este caso, el controlador)
     next();
   });
 };

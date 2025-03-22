@@ -1,13 +1,15 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';  // Asegúrate de importar HttpHeaders
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';  // Importa jwt-decode
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:3000/api/auth';  // URL de la API de autenticación
+  private apiUrl = 'http://localhost:3000/auth';  // URL de la API de autenticación
   private http = inject(HttpClient);
 
   // Método para registrar un nuevo usuario
@@ -17,7 +19,14 @@ export class AuthService {
 
   // Método para iniciar sesión con las credenciales de un usuario
   login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials);  // Llamamos al endpoint de login
+    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
+      tap((response: any) => {
+        if (response.token) {
+          localStorage.setItem('token', response.token);  // Guarda el token en localStorage
+          console.log('Token guardado en localStorage:', response.token);  // Verifica el token guardado
+        }
+      })
+    );
   }
 
   // Método para verificar si el usuario está autenticado (si tiene un token)
@@ -28,6 +37,16 @@ export class AuthService {
   // Método para obtener el token del usuario almacenado en localStorage
   getToken(): string | null {
     return localStorage.getItem('token');  // Devuelve el token del localStorage
+  }
+
+  // Método para obtener el userId del token
+  getUserId(): number | null {
+    const token = this.getToken();
+    if (token) {
+      const decodedToken: any = jwtDecode(token);  // Decodifica el token
+      return decodedToken?.userId || null;  // Asumiendo que el payload contiene 'userId'
+    }
+    return null;
   }
 
   // Método para cerrar sesión eliminando el token del localStorage

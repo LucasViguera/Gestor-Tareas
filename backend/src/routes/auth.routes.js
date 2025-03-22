@@ -1,48 +1,24 @@
 import { Router } from "express";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import { PrismaClient } from "@prisma/client";
+import * as authController from "../controllers/authController.js";
+import authenticateToken from "../middlewares/auth.middleware.js"; // Importamos el middleware
 
-const prisma = new PrismaClient();
 const router = Router();
 
+// Obtener todos los usuarios
+router.get("/users", authenticateToken, authController.getUsers);
+
 // Registro de usuario
-router.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
-
-  try {
-    const userExists = await prisma.user.findUnique({ where: { email } });
-    if (userExists) return res.status(400).json({ message: "El usuario ya existe" });
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = await prisma.user.create({
-      data: { username, email, password: hashedPassword },
-    });
-
-    res.json({ message: "Usuario registrado correctamente", user });
-  } catch (error) {
-    res.status(500).json({ message: "Error en el servidor", error });
-  }
-});
+router.post("/register", authController.createUser);  // Cambiado a POST
 
 // Inicio de sesión
-router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+router.post("/login", authController.loginUser);  // Cambiado a POST
 
-  try {
-    const user = await prisma.user.findUnique({ where: { email } });
-    if (!user) return res.status(400).json({ message: "Usuario no encontrado" });
+// Obtener datos del usuario autenticado
+router.get("/user", authenticateToken, authController.getUserData);
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: "Contraseña incorrecta" });
-
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-
-    res.json({ token, user: { id: user.id, username: user.username, email: user.email } });
-  } catch (error) {
-    res.status(500).json({ message: "Error en el servidor", error });
-  }
+// Ruta de verificación de rol de administrador (solo accesible por admins)
+router.get("/admin", authenticateToken, authController.checkAdmin, (_req, res) => {
+  res.status(200).json({ message: "Acceso autorizado como administrador" });
 });
 
 export default router;

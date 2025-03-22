@@ -42,7 +42,7 @@ export class LoginComponent {
           alert('Inicio de sesión exitoso');
           
           // Redirigir al usuario después de un inicio de sesión exitoso
-          this.router.navigate(['/dashboard']);  // Redirigir a una página, como el panel de tareas
+          this.router.navigate(['/tasks']);  // Redirigir a una página, como el panel de tareas
         },
         error: (error) => {
           console.error('Error en el inicio de sesión', error);

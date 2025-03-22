@@ -16,7 +16,7 @@
         #titleField="ngModel"
       />
       <div *ngIf="titleField.invalid && titleField.touched" class="error-message">
-         El nombre de la tarea es obligatorio.
+        El nombre de la tarea es obligatorio.
       </div>
     </div>
 
@@ -82,16 +82,33 @@
 
     <!-- Campo Asignado a -->
     <div class="form-group">
-      <label for="assignee"> Asignar a</label>
+      <label for="assignee">Asignado a</label>
       <select 
         id="assignee" 
-        name="assignee" 
         [(ngModel)]="assignee" 
+        name="assignee" 
+        #assigneeField="ngModel"
         class="form-control"
-        required
       >
+        <option value="" disabled>Selecciona un usuario</option>
         <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
       </select>
+      <div *ngIf="assigneeField.invalid && assigneeField.touched" class="error-message">
+        Este campo es obligatorio.
+      </div>
+    </div>
+
+    <!-- Mostrar los usuarios cargados -->
+    <div *ngIf="users.length > 0">
+      <h3>Usuarios Cargados:</h3>
+      <ul>
+        <li *ngFor="let user of users">{{ user.email }}</li>
+      </ul>
+    </div>
+
+    <!-- Mostrar un mensaje de carga si los usuarios están siendo obtenidos -->
+    <div *ngIf="users.length === 0 && !errorMessage">
+      <p>Cargando usuarios...</p>
     </div>
 
     <!-- Mensaje de error -->
@@ -100,7 +117,7 @@
     </div>
 
     <!-- Botón de enviar -->
-    <button type="submit" class="btn btn-primary w-100 mt-3" [disabled]="taskForm.invalid">
+    <button type="submit" class="btn btn-primary w-100 mt-3">
       Crear tarea
     </button>
   </form>

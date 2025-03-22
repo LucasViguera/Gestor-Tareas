@@ -25,6 +25,7 @@
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.8",
     "http": "^0.0.1-security",
+    "jwt-decode": "^4.0.0",
     "ng2-charts": "^8.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

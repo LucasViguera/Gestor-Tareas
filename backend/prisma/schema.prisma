@@ -7,25 +7,25 @@ datasource db {
   url      = env("DATABASE_URL") // La URL de tu base de datos
 }
 
-model Task {
-  id            Int      @id @default(autoincrement())
-  title         String
-  description   String
-  userId        Int      // ID del usuario que creó la tarea
-  assigneeUserId Int     // ID del usuario asignado a la tarea
-  user          User     @relation("CreatedTasks", fields: [userId], references: [id]) // Relación con User (creador de tarea)
-  assignee      User     @relation("AssignedTasks", fields: [assigneeUserId], references: [id]) // Relación con el usuario asignado
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  username  String
+  role      String   @default("USER") // Agregar el campo `role` con un valor por defecto si es necesario
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  tasks     Task[]   @relation("AssignedTasks") // Esta es la relación inversa
 }
 
-model User {
-  id        Int      @id @default(autoincrement()) // ID autoincremental
-  email     String   @unique // Campo único para el email
-  username  String
-  password  String
-  tasks     Task[]   @relation("CreatedTasks") // Relación de 1 a muchos con tareas creadas por el usuario
-  assignedTasks Task[] @relation("AssignedTasks") // Relación de 1 a muchos con tareas asignadas
-  createdAt DateTime @default(now()) // Fecha de creación
-  updatedAt DateTime @updatedAt // Fecha de actualización
+model Task {
+  id          Int    @id @default(autoincrement()) 
+  title       String
+  description String
+  startDate   DateTime
+  endDate     DateTime
+  priority    String
+  assigneeId  Int  // Referencia al usuario asignado
+  assignee    User @relation("AssignedTasks", fields: [assigneeId], references: [id]) // Relación con User
+  completed   Boolean
 }

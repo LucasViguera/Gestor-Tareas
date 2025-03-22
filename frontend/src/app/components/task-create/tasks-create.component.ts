@@ -19,27 +19,42 @@ export class TaskCreateComponent implements OnInit {
   startDate: string = '';
   endDate: string = '';
   priority: string = 'media';
-  assignee: string = '';  // Asegúrate de que 'assignee' esté correctamente definido
-  userId: number = 0;
+  assignee: any;
+  userId: number | null = null;
   errorMessage: string | null = null;
+  completed: boolean;
 
-  users: any[] = [];
+  users: any[] = [];  // Aquí se guardarán los usuarios obtenidos
+  selectedUser: any;   // Aquí se guardará el usuario seleccionado en el dropdown
 
   constructor(
     private taskService: TaskService,
     private userService: UserService,
     private authService: AuthService
-  ) {}
+  ) { 
+    this.completed = false;
+  }
 
   ngOnInit(): void {
+    // Verificar si el usuario está autenticado
     if (!this.authService.isAuthenticated()) {
       this.errorMessage = 'Por favor, inicia sesión para crear tareas.';
       return;
     }
 
+    // Obtener el userId del servicio AuthService
+    this.userId = this.authService.getUserId();
+    
+    if (!this.userId) {
+      this.errorMessage = 'No se pudo obtener el usuario autenticado. Por favor, inicia sesión nuevamente.';
+      return;
+    }
+
+    // Cargar los usuarios
     this.userService.getUsers().subscribe({
       next: (response: any[]) => {
-        this.users = response;
+        this.users = response;  // Almacenar usuarios obtenidos
+        console.log(this.users);
       },
       error: (error: any) => {
         console.error('Error al obtener usuarios:', error);
@@ -52,17 +67,20 @@ export class TaskCreateComponent implements OnInit {
   }
 
   onSubmit(taskForm: NgForm) {
+    // Permitir enviar el formulario incluso si no hay asignado
     if (taskForm.valid) {
-      const newTask: Task = {
+      // Si no hay un usuario asignado, dejar el campo 'assignee' como null
+      const newTask: Omit<Task, 'id'> = {  // Omitimos 'id' aquí
         title: this.title,
         description: this.description,
         startDate: this.startDate,
         endDate: this.endDate,
         priority: this.priority,
-        assignee: this.assignee,  // Asegúrate de que 'assignee' sea correctamente asignado
-        userId: this.userId
+        assignee: this.assignee || null, // Si no hay asignado, establecerlo como null
+        userId: this.userId!, // Aquí usamos '!' para asegurar que no sea null
+        completed: this.completed,
       };
-
+  
       this.taskService.saveTask(newTask).subscribe({
         next: (response: any) => {
           console.log('Tarea creada:', response);
@@ -77,9 +95,9 @@ export class TaskCreateComponent implements OnInit {
           console.log('La solicitud de creación de tarea ha finalizado.');
         }
       });
-      
     } else {
       this.errorMessage = 'Por favor, completa todos los campos antes de crear la tarea.';
     }
   }
+  
 }

@@ -1,35 +1,37 @@
 <div class="task-list-container">
-    <h2>Lista de Tareas</h2>
-    <table class="task-table">
-      <thead>
-        <tr>
-          <th>Título</th>
-          <th>Descripción</th>
-          <th>Fecha de Inicio</th>
-          <th>Fecha de Fin</th>
-          <th>Prioridad</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let task of tasks">
-          <td>{{ task.title }}</td>
-          <td>{{ task.description }}</td>
-          <td>{{ task.startDate }}</td>
-          <td>{{ task.endDate }}</td>
-          <td>{{ task.priority }}</td>
-          <td class="actions">
-            <button class="btn complete-btn" (click)="markComplete(task)">
-              {{ task.completed ? 'Desmarcar' : 'Marcar como completada' }}
-            </button>
-            <button class="btn edit-btn" (click)="editTask(task)">
-              Editar
-            </button>
-            <button class="btn delete-btn" (click)="deleteTask(task.id)">
-              Eliminar
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <h2>Lista de Tareas</h2>
+  <table class="task-table">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Descripción</th>
+        <th>Fecha de Inicio</th>
+        <th>Fecha de Fin</th>
+        <th>Prioridad</th>
+        <th>Asignado a</th> <!-- Nueva columna -->
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks">
+        <td>{{ task.title }}</td>
+        <td>{{ task.description }}</td>
+        <td>{{ task.startDate }}</td>
+        <td>{{ task.endDate }}</td>
+        <td>{{ task.priority }}</td>
+        <td>{{ getUsername(task.assigneeId) }}</td> <!-- Mostrar username -->
+        <td class="actions">
+          <button class="btn complete-btn" (click)="markComplete(task)">
+            {{ task.completed ? 'Desmarcar' : 'Marcar como completada' }}
+          </button>
+          <button class="btn edit-btn" (click)="editTask(task)">
+            Editar
+          </button>
+          <button class="btn delete-btn" (click)="deleteTask(task.id)">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

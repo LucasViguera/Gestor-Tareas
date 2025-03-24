@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../services/task.service';  // Asegúrate de que este servicio esté correctamente importado
+import { UserService } from '../../services/user.service';  // Asegúrate de que el servicio de usuarios esté importado
 import { Task } from '../../models/task.model';  // Asegúrate de tener una interfaz de Task para tipado correcto
 
 @Component({
@@ -12,13 +13,15 @@ import { Task } from '../../models/task.model';  // Asegúrate de tener una inte
 })
 export class TaskListComponent implements OnInit {
   tasks: Task[] = [];  // Aquí se almacenarán las tareas obtenidas del backend
+  users: any[] = [];  // Aquí almacenaremos los usuarios
   errorMessage: string | null = null;  // Para manejar posibles errores
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private userService: UserService) {}
 
   ngOnInit(): void {
-    // Al inicializar el componente, obtenemos las tareas
+    // Al inicializar el componente, obtenemos las tareas y los usuarios
     this.getTasks();
+    this.getUsers();
   }
 
   // Método para obtener las tareas desde el servicio
@@ -32,6 +35,28 @@ export class TaskListComponent implements OnInit {
         this.errorMessage = 'Hubo un problema al cargar las tareas.';
       }
     });
+  }
+
+  // Método para obtener los usuarios desde el servicio
+  getUsers(): void {
+    this.userService.getUsers().subscribe({
+      next: (users: any[]) => {
+        this.users = users;  // Asignamos los usuarios obtenidos a la variable 'users'
+      },
+      error: (error: any) => {
+        console.error('Error al obtener usuarios:', error);
+        this.errorMessage = 'Hubo un problema al cargar los usuarios.';
+      }
+    });
+  }
+
+  // Método para obtener el nombre de usuario a partir del assigneeId
+  getUsername(assigneeId: number | null): string {
+    if (assigneeId === null) {
+      return 'No asignado';  // Si no hay un usuario asignado, retornamos 'No asignado'
+    }
+    const user = this.users.find((user: { id: number; }) => user.id === assigneeId);
+    return user ? user.username : 'Usuario no encontrado';  // Si encontramos el usuario, mostramos su nombre, sino, mostramos 'Usuario no encontrado'
   }
 
   // Eliminar tarea
@@ -67,26 +92,23 @@ export class TaskListComponent implements OnInit {
   // Método para editar una tarea
   editTask(task: Task): void {
     console.log('Editar tarea:', task);
-    // Aquí puedes redirigir a otro componente o abrir un modal para editar la tarea
-    // Por ejemplo, redirigiendo a una página de edición:
-    // this.router.navigate(['/edit', task.id]);
   }
 
-// Cambiar estado de completado
-markComplete(task: Task): void {
-  // Cambia el estado de completado de la tarea
-  task.completed = !task.completed;
+  // Cambiar estado de completado
+  markComplete(task: Task): void {
+    // Cambia el estado de completado de la tarea
+    task.completed = !task.completed;
 
-  // Llamamos al servicio para actualizar la tarea en el backend
-  this.taskService.updateTask(task).subscribe({
-    next: (updatedTask: Task) => {
-      console.log('Tarea actualizada:', updatedTask);
-      // Si es necesario, actualiza alguna otra parte del UI, o agrega lógica adicional aquí.
-    },
-    error: (error: any) => {
-      console.error('Error al actualizar tarea:', error);
-      // Si ocurre un error, podrías mostrar un mensaje en el UI o revertir el cambio realizado.
-    }
-  });
-}
+    // Llamamos al servicio para actualizar la tarea en el backend
+    this.taskService.updateTask(task).subscribe({
+      next: (updatedTask: Task) => {
+        console.log('Tarea actualizada:', updatedTask);
+        // Si es necesario, actualiza alguna otra parte del UI, o agrega lógica adicional aquí.
+      },
+      error: (error: any) => {
+        console.error('Error al actualizar tarea:', error);
+        // Si ocurre un error, podrías mostrar un mensaje en el UI o revertir el cambio realizado.
+      }
+    });
+  }
 }

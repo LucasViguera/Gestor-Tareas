@@ -5,6 +5,7 @@ import { Task } from '../../models/task.model';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-task-create',
@@ -71,38 +72,42 @@ export class TaskCreateComponent implements OnInit {
       this.errorMessage = 'Por favor, completa todos los campos antes de crear la tarea.';
       return;
     }
-
-    // Validar que el campo assigneeId no sea null o vacío
+  
     if (!this.assigneeId) {
       this.errorMessage = 'Por favor, selecciona un usuario asignado.';
       return;
     }
-
-    // Validar fechas antes de enviarlas
+  
     const startDateFormatted = this.formatDate(this.startDate);
     const endDateFormatted = this.formatDate(this.endDate);
-    
+  
     if (!startDateFormatted || !endDateFormatted) {
       this.errorMessage = 'Las fechas ingresadas no son válidas.';
       return;
     }
-
+  
     const newTask: Omit<Task, 'id' | 'assignee'> & { assigneeId: number | null } = {
       title: this.title.trim(),
       description: this.description.trim(),
       startDate: this.startDate,
       endDate: this.endDate,
       priority: this.priority,
-      assigneeId: this.assigneeId ?? null, // Ahora se obtiene el ID del usuario seleccionado
+      assigneeId: this.assigneeId ?? null,
       completed: false,
     };
-    console.log('Datos a enviar:', newTask);  
-
+  
     this.taskService.saveTask(newTask).subscribe({
       next: (response: any) => {
-        console.log('Tarea creada con éxito:', response);
         taskForm.resetForm();
         this.errorMessage = null;
+  
+        // SweetAlert2 para mostrar una notificación
+        Swal.fire({
+          title: 'Éxito',
+          text: '¡La tarea ha sido registrada correctamente!',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        });
       },
       error: (error: any) => this.handleError(error),
       complete: () => {

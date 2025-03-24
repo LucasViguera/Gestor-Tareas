@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';  // Para redirigir al usuario
+import Swal from 'sweetalert2';  // Importamos SweetAlert2
 
 @Component({
   selector: 'app-login',
@@ -39,15 +40,33 @@ export class LoginComponent {
         next: (response) => {
           console.log('Inicio de sesión exitoso', response);
           localStorage.setItem('token', response.token);
-          alert('Inicio de sesión exitoso');
+          
+          // Usamos SweetAlert2 para mostrar un mensaje de éxito
+          Swal.fire({
+            title: 'Inicio de sesión exitoso',
+            text: 'Bienvenido!',
+            icon: 'success',  // Tipo de alerta (success, error, warning, info, question)
+            confirmButtonText: 'Aceptar',  // Texto del botón
+            background: '#f0f8ff',  // Fondo de la alerta
+            confirmButtonColor: '#3085d6',  // Color del botón
+            timer: 2500  // Cierra la alerta automáticamente después de 2.5 segundos
+          });
+          
           
           // Redirigir al usuario después de un inicio de sesión exitoso
-          this.router.navigate(['/tasks']);  // Redirigir a una página, como el panel de tareas
+          this.router.navigate(['/task']);  // Redirigir a una página, como el panel de tareas
         },
         error: (error) => {
           console.error('Error en el inicio de sesión', error);
           this.errorMessage = 'Credenciales incorrectas. Por favor, intenta de nuevo.';
-          alert('Error en el inicio de sesión');
+          
+          // Usamos SweetAlert2 para mostrar un mensaje de error
+          Swal.fire({
+            title: 'Error',
+            text: 'Credenciales incorrectas. Por favor, intenta de nuevo.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          });
         },
         complete: () => {
           this.loading = false;  // Detener el estado de carga

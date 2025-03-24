@@ -8,6 +8,7 @@ import { provideHttpClient } from '@angular/common/http';
 // Importación de componentes standalone
 import { HomeComponent } from './components/home/home.component';
 import { TaskListComponent } from './components/tasks-list/tasks-list.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
 
 // Angular Material Modules
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -29,7 +30,8 @@ import { TaskService } from './services/task.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CalendarComponent
   ],
   providers: [
     TaskService,         // Servicio de tareas

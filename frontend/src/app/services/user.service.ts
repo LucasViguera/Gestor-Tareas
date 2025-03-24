@@ -19,13 +19,23 @@ export class UserService {
   }
 
   // Método para eliminar un usuario
-  deleteUser(userId: number): Observable<void> {
+  deleteUser(userId: number): Observable<any> {
     const token = localStorage.getItem('token');
-    const headers = token ? new HttpHeaders().set('Authorization', `Bearer ${token}`) : new HttpHeaders();
-    const deleteUrl = `${this.apiUrl}/${userId}`;
-
-    return this.http.delete<void>(deleteUrl, { headers });
+    if (!token) {
+      console.error('Token de autenticación no encontrado');
+      throw new Error('Token de autenticación no encontrado');
+    }
+  
+    console.log('Token encontrado:', token);  // Verifica que el token esté presente
+  
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    // Cambié la URL para que coincida con el endpoint del backend
+    return this.http.delete(`${this.apiUrl}/delete/${userId}`, { headers });
   }
+
 
   // Método para editar un usuario (esto es opcional, pero útil si lo necesitas)
   updateUser(userId: number, updatedData: any): Observable<any> {

@@ -3,8 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import authRoutes from "./src/routes/auth.routes.js"; // Rutas de autenticación
 import taskRoutes from "./src/routes/task.routes.js"; // Rutas de tareas
-import UserRoutes from "./src/routes/user.routes.js";
-
+import userRoutes from "./src/routes/user.routes.js"; 
+import "./src/database/db.js"; 
 
 dotenv.config();
 const app = express();
@@ -28,10 +28,10 @@ app.use(express.json());
 
 // Rutas de autenticación
 app.use("/auth", authRoutes); // Prefijo '/auth' para las rutas de autenticación
-
-app.use("/users", UserRoutes);
 // Rutas de tareas
 app.use("/tasks", taskRoutes); // Prefijo '/tasks' para las rutas de tareas
+
+app.use("/users", userRoutes);
 
 // Iniciar servidor en el puerto 3000
 app.listen(3000, () => {

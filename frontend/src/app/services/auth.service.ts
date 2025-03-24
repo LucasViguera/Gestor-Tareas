@@ -11,7 +11,8 @@ export class AuthService {
 
   private apiUrl = 'http://localhost:3000/auth';  // URL de la API de autenticación
   private http = inject(HttpClient);
-
+  
+  
   // Método para registrar un nuevo usuario
   register(user: { username: string; email: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, user);  // Llamamos al endpoint de registro

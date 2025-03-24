@@ -21,9 +21,6 @@
         <td>{{ task.priority }}</td>
         <td>{{ getUsername(task.assigneeId) }}</td> <!-- Mostrar username -->
         <td class="actions">
-          <button class="btn complete-btn" (click)="markComplete(task)">
-            {{ task.completed ? 'Desmarcar' : 'Marcar como completada' }}
-          </button>
           <button class="btn edit-btn" (click)="editTask(task)">
             Editar
           </button>

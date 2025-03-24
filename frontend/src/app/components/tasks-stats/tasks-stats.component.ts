@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts'; // Importar ngx-charts
 
@@ -6,7 +7,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts'; // Importar ngx-charts
   standalone: true,
   templateUrl: './tasks-stats.component.html',
   styleUrls: ['./tasks-stats.component.css'],
-  imports: [NgxChartsModule] // Agregar NgxChartsModule
+  imports: [NgxChartsModule, CommonModule] // Agregar NgxChartsModule
 })
 export class TasksStatsComponent {
   // Datos de las tareas

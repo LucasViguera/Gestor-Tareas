@@ -16,8 +16,8 @@
       <tr *ngFor="let task of tasks">
         <td>{{ task.title }}</td>
         <td>{{ task.description }}</td>
-        <td>{{ task.startDate }}</td>
-        <td>{{ task.endDate }}</td>
+        <td>{{ task.startDate | date:'dd-MM-yyyy' }}</td>
+        <td>{{ task.endDate | date:'dd-MM-yyyy' }}</td>
         <td>{{ task.priority }}</td>
         <td>{{ getUsername(task.assigneeId) }}</td> <!-- Mostrar username -->
         <td class="actions">

@@ -1,36 +1,74 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Para usar ngModel
+import { Component, OnInit } from '@angular/core';
+import { TaskService } from '../../services/task.service'; // Asegúrate de que el servicio esté importado
+
+import { FullCalendarModule } from '@fullcalendar/angular'; // Ya está correcto
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+
+import { Task } from '../../models/task.model'; // Importar el modelo Task
 
 @Component({
   selector: 'app-calendar',
-  standalone: true,
-  imports: [CommonModule, FormsModule],  // Solo se necesitan CommonModule y FormsModule
+  standalone: true, // Usando componente standalone
+  imports: [FullCalendarModule], // Importamos el módulo FullCalendar
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
 })
-export class CalendarComponent {
-  events: { title: string, date: string }[] = [
-    { title: 'Reunión de equipo', date: '2025-03-20' },
-    { title: 'Entrega de tarea', date: '2025-03-22' },
-    { title: 'Cita con el cliente', date: '2025-03-25' },
-  ];
+export class CalendarComponent implements OnInit {
+  calendarOptions: any; // Usamos `any` ya que `@fullcalendar/angular` no exporta un tipo específico
+  tasks: Task[] = []; // Lista de tareas de tipo Task
 
-  newEventTitle: string = '';
-  newEventDate: string = '';
-  errorMessage: string = '';  // Mensaje de error si algún campo está vacío
+  constructor(private taskService: TaskService) {}
 
-  constructor() {}
+  ngOnInit(): void {
+    this.loadTasks();
+  }
 
-  // Método para agregar un nuevo evento
-  addEvent() {
-    if (this.newEventTitle && this.newEventDate) {
-      this.events.push({ title: this.newEventTitle, date: this.newEventDate });
-      this.newEventTitle = ''; // Limpiar campo de título
-      this.newEventDate = ''; // Limpiar campo de fecha
-      this.errorMessage = ''; // Limpiar mensaje de error
-    } else {
-      this.errorMessage = 'Ambos campos son requeridos.';
+  loadTasks() {
+    this.taskService.getTasks().subscribe((tasks: Task[]) => {
+      console.log('Tareas cargadas:', tasks); // Verifica que las tareas estén cargadas correctamente
+      this.tasks = tasks.map(task => {
+        const startDate = this.formatDate(task.startDate);
+        const endDate = this.formatDate(task.endDate);
+        return { ...task, startDate, endDate };
+      });
+      this.initializeCalendar();
+    });
+  }
+  
+  // Función para formatear la fecha
+  formatDate(date: string): string {
+    const formattedDate = new Date(date);
+    const year = formattedDate.getUTCFullYear();
+    const month = (formattedDate.getUTCMonth() + 1).toString().padStart(2, '0'); // Mes empieza en 0
+    const day = formattedDate.getUTCDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`; // Formato: YYYY-MM-DD
+  }
+
+  initializeCalendar() {
+    // Configuración de FullCalendar usando las opciones adecuadas
+    this.calendarOptions = {
+      plugins: [dayGridPlugin, interactionPlugin],
+      initialView: 'dayGridMonth', // Vista por defecto (mes)
+      events: this.tasks.map(task => ({
+        title: task.title,
+        start: task.startDate,  // Asegúrate de que las fechas estén bien formateadas
+        end: task.endDate,
+        description: task.description,
+        color: this.getPriorityColor(task.priority) // Color según prioridad
+      })),
+      eventClick: (info: any) => {
+        alert('Tarea: ' + info.event.title + '\nDescripción: ' + info.event.extendedProps.description);
+      }
+    };
+  }
+
+  getPriorityColor(priority: string) {
+    switch (priority) {
+      case 'Alta': return '#FF4136'; // Rojo
+      case 'Media': return '#FF851B'; // Naranja
+      case 'Baja': return '#2ECC40'; // Verde
+      default: return '#7FDBFF'; // Azul
     }
   }
 }

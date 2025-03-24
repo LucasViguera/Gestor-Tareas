@@ -1,62 +1,116 @@
+/* Contenedor principal de la lista de tareas */
 .task-list-container {
-  margin: 20px;
-  font-family: Arial, sans-serif;
+  background-color: #FFF; /* Fondo blanco para la lista de tareas */
+  padding: 30px;
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  max-width: 1200px;
+  margin: 20px auto; /* Centrado horizontal */
+  text-align: left; /* Alineación a la izquierda para el texto */
 }
 
-h2 {
-  text-align: center;
+/* Título de la lista de tareas */
+.task-list-container h2 {
+  font-size: 2rem;
+  font-weight: 600;
   color: #333;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
+/* Estilo de la tabla de tareas */
 .task-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
+/* Encabezados de la tabla */
 .task-table th, .task-table td {
-  padding: 10px;
+  padding: 12px;
   text-align: left;
-  border: 1px solid #ddd;
+  font-size: 1rem;
+  border-bottom: 1px solid #ddd;
+  white-space: normal; /* Asegura que el texto pueda ocupar varias líneas */
 }
 
+/* Estilo para los encabezados */
 .task-table th {
-  background-color: #f4f4f4;
+  background-color: #333; /* Fondo oscuro para el encabezado */
+  color: #F1F1F1; /* Blanco para los encabezados */
+  font-weight: 600;
+}
+
+/* Estilo para las celdas */
+.task-table td {
+  background-color: #FFF; /* Fondo blanco para las celdas */
   color: #333;
 }
 
-.task-table td {
-  background-color: #fff;
-}
-
+/* Ajustes para las acciones (botones) dentro de la tabla */
 .actions {
   display: flex;
+  flex-wrap: wrap; /* Permite que los botones se acomoden de manera flexible */
   gap: 10px;
+  justify-content: center;
 }
 
+/* Estilo para los botones */
 .btn {
-  padding: 6px 12px;
+  padding: 8px 16px;
   border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
   cursor: pointer;
-  font-size: 14px;
-  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  white-space: nowrap; /* Evita que el texto dentro de los botones se divida */
 }
 
+/* Botón de completar tarea */
 .complete-btn {
-  background-color: #4caf50;
+  background-color: #4CAF50; /* Verde */
   color: white;
 }
 
+.complete-btn:hover {
+  background-color: #45a049;
+}
+
+/* Botón de editar tarea */
 .edit-btn {
-  background-color: #ffa500;
+  background-color: #2196F3; /* Azul */
   color: white;
 }
 
+.edit-btn:hover {
+  background-color: #1976D2;
+}
+
+/* Botón de eliminar tarea */
 .delete-btn {
-  background-color: #f44336;
+  background-color: #F44336; /* Rojo */
   color: white;
 }
 
-.btn:hover {
-  opacity: 0.8;
+.delete-btn:hover {
+  background-color: #D32F2F;
+}
+
+/* Fila de tareas completadas */
+.completed {
+  background-color: #E8F5E9; /* Fondo verde claro para tareas completadas */
+  text-decoration: line-through; /* Tachar el texto */
+}
+
+/* Ajustes de media query para pantallas pequeñas */
+@media (max-width: 768px) {
+  .task-table th, .task-table td {
+      font-size: 0.9rem;
+  }
+
+  .btn {
+      font-size: 0.8rem;
+      padding: 6px 12px;
+  }
 }

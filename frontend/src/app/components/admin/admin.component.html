@@ -1,6 +1,48 @@
 <div class="admin-panel-container">
-    <h2>Panel de Administrador</h2>
-    <button (click)="manageUsers()">Gestionar Usuarios</button>
-    <button (click)="viewReports()">Ver Reportes</button>
+  <h2>Panel de Administrador</h2>
+
+  <!-- Botón para gestionar usuarios -->
+  <button *ngIf="!loading && !showUsersList" class="admin-btn" (click)="getUsers()">Gestionar Usuarios</button>
+
+  <!-- Mostrar cargando mientras obtenemos los usuarios -->
+  <div *ngIf="loading" class="loading">Cargando...</div>
+
+  <!-- Mostrar usuarios cargados cuando la lista esté disponible -->
+  <div *ngIf="showUsersList && !loading">
+    <h3>Usuarios</h3>
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td class="actions">
+            <!-- Botones de acción (Editar, Eliminar) -->
+            <button class="btn edit-btn" (click)="editUser(user.id)">
+              <i class="fa fa-edit"></i> Editar
+            </button>
+            <button class="btn delete-btn" (click)="deleteUser(user.id)">
+              <i class="fa fa-trash"></i> Eliminar
+            </button>
+            <button class="btn refresh-btn" (click)="refreshUsers()">
+              <i class="fa fa-refresh"></i> Actualizar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  
+
+  <!-- Mensaje si no hay usuarios -->
+  <div *ngIf="!loading && users.length === 0 && showUsersList" class="no-users">
+    No hay usuarios para mostrar.
+  </div>
+</div>

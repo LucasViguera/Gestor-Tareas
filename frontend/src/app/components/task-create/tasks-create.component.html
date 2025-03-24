@@ -80,24 +80,21 @@
       </select>
     </div>
 
-    <!-- Campo Asignado a -->
-    <div class="form-group">
-      <label for="assignee">Asignado a</label>
-      <select 
-      id="assignee" 
-      [(ngModel)]="assignee" 
-      name="assignee" 
-      class="form-control"
-      required
-    >
-      <option value="" disabled>Selecciona un usuario</option>
-      <option *ngFor="let user of users" [value]="user.id">{{ user.username }}</option>
-    </select>
-    <div *ngIf="taskForm.submitted && !assignee" class="error-message">
-      Este campo es obligatorio.
-    </div>
-    
-    </div>
+  <!-- Campo Asignado a -->
+  <select 
+  id="assignee" 
+  [(ngModel)]="assigneeId" 
+  name="assignee" 
+  class="form-control"
+  required
+>
+  <option value="" disabled>Selecciona un usuario</option>
+  <option *ngFor="let user of users" [ngValue]="user.id">{{ user.username }}</option>
+</select>
+<div *ngIf="taskForm.submitted && !assigneeId" class="error-message">
+  Este campo es obligatorio.
+</div>
+
 
     <!-- Mostrar un mensaje de carga si los usuarios están siendo obtenidos -->
     <div *ngIf="users.length === 0 && !errorMessage">

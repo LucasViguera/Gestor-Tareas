@@ -19,13 +19,12 @@ export class TaskCreateComponent implements OnInit {
   startDate: string = '';
   endDate: string = '';
   priority: string = 'media';
-  assignee: any;
-  userId: number | null = null;
+  assigneeId: number | null = null; // Ahora es solo el ID
   errorMessage: string | null = null;
   completed: boolean;
 
-  users: any[] = [];  // Aquí se guardarán los usuarios obtenidos
-  selectedUser: any;   // Aquí se guardará el usuario seleccionado en el dropdown
+  users: any[] = [];
+  selectedUser: any = null;
 
   constructor(
     private taskService: TaskService,
@@ -36,68 +35,96 @@ export class TaskCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Verificar si el usuario está autenticado
-    if (!this.authService.isAuthenticated()) {
-      this.errorMessage = 'Por favor, inicia sesión para crear tareas.';
-      return;
-    }
-
-    // Obtener el userId del servicio AuthService
-    this.userId = this.authService.getUserId();
-    
-    if (!this.userId) {
-      this.errorMessage = 'No se pudo obtener el usuario autenticado. Por favor, inicia sesión nuevamente.';
-      return;
-    }
-
-    // Cargar los usuarios
     this.userService.getUsers().subscribe({
       next: (response: any[]) => {
-        this.users = response;  // Almacenar usuarios obtenidos
-        console.log(this.users);
+        this.users = response || [];
+        console.log('Usuarios cargados:', this.users);
       },
       error: (error: any) => {
         console.error('Error al obtener usuarios:', error);
         this.errorMessage = 'Hubo un problema al cargar los usuarios.';
       },
       complete: () => {
-        console.log('La solicitud de carga de usuarios ha finalizado.');
+        console.log('Carga de usuarios completada.');
       }
     });
   }
 
-  onSubmit(taskForm: NgForm) {
-    // Permitir enviar el formulario incluso si no hay asignado
-    if (taskForm.valid) {
-      // Si no hay un usuario asignado, dejar el campo 'assignee' como null
-      const newTask: Omit<Task, 'id' | 'assignee'> & { assigneeId: number | null } = {
-        title: this.title,
-        description: this.description,
-        startDate: this.startDate,
-        endDate: this.endDate,
-        priority: this.priority,
-        assigneeId: this.assignee ? this.assignee.id : null,  // Usar assigneeId en lugar de assignee
-        completed: this.completed,
-    };
-    
+  handleError(error: any) {
+    console.error('Error en la solicitud:', error);
   
-      this.taskService.saveTask(newTask).subscribe({
-        next: (response: any) => {
-          console.log('Tarea creada:', response);
-          taskForm.resetForm();
-          this.errorMessage = null;
-        },
-        error: (error: any) => {
-          console.error('Error al crear tarea:', error);
-          this.errorMessage = 'Ocurrió un error al crear la tarea. Intenta nuevamente.';
-        },
-        complete: () => {
-          console.log('La solicitud de creación de tarea ha finalizado.');
-        }
-      });
+    if (error.status === 400) {
+      this.errorMessage = 'Solicitud inválida. Verifica los datos ingresados.';
+    } else if (error.status === 401) {
+      this.errorMessage = 'No estás autorizado para realizar esta acción.';
+    } else if (error.status === 404) {
+      this.errorMessage = 'Recurso no encontrado.';
+    } else if (error.status === 500) {
+      this.errorMessage = 'Error interno del servidor. Inténtalo más tarde.';
     } else {
-      this.errorMessage = 'Por favor, completa todos los campos antes de crear la tarea.';
+      this.errorMessage = error.error?.message || 'Ocurrió un error inesperado.';
     }
   }
+
+  onSubmit(taskForm: NgForm) {
+    if (!taskForm.valid) {
+      this.errorMessage = 'Por favor, completa todos los campos antes de crear la tarea.';
+      return;
+    }
+
+    // Validar que el campo assigneeId no sea null o vacío
+    if (!this.assigneeId) {
+      this.errorMessage = 'Por favor, selecciona un usuario asignado.';
+      return;
+    }
+
+    // Validar fechas antes de enviarlas
+    const startDateFormatted = this.formatDate(this.startDate);
+    const endDateFormatted = this.formatDate(this.endDate);
+    
+    if (!startDateFormatted || !endDateFormatted) {
+      this.errorMessage = 'Las fechas ingresadas no son válidas.';
+      return;
+    }
+
+    const newTask: Omit<Task, 'id' | 'assignee'> & { assigneeId: number | null } = {
+      title: this.title.trim(),
+      description: this.description.trim(),
+      startDate: this.startDate,
+      endDate: this.endDate,
+      priority: this.priority,
+      assigneeId: this.assigneeId ?? null, // Ahora se obtiene el ID del usuario seleccionado
+      completed: false,
+    };
+    console.log('Datos a enviar:', newTask);  
+
+    this.taskService.saveTask(newTask).subscribe({
+      next: (response: any) => {
+        console.log('Tarea creada con éxito:', response);
+        taskForm.resetForm();
+        this.errorMessage = null;
+      },
+      error: (error: any) => this.handleError(error),
+      complete: () => {
+        console.log('Solicitud de creación de tarea completada.');
+      }
+    });
+  }
   
+  formatDate(date: string | null | undefined): string {
+    if (!date) {
+      console.warn('Fecha vacía o no definida.');
+      return ''; // Mejor devolver una cadena vacía si es necesario
+    }
+    
+    const parsedDate = new Date(date);
+    
+    if (isNaN(parsedDate.getTime())) {
+      console.error(`Fecha inválida: ${date}`);
+      return ''; // Devolver vacío en vez de `null` para evitar errores en JSON
+    }
+  
+    return parsedDate.toISOString().slice(0, 19).replace('T', ' ') // "YYYY-MM-DD HH:mm:ss"
+  }
 }
+

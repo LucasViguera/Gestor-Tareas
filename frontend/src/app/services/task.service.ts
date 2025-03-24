@@ -23,8 +23,11 @@ export class TaskService {
 
   // Método para crear una nueva tarea
   saveTask(newTask: Omit<Task, 'id'>): Observable<Task> {  // Cambiar a Omit<Task, 'id'>
-    return this.http.post<Task>(`${this.apiUrl}/create`, newTask);
+    return this.http.post<Task>(`${this.apiUrl}/create`, newTask, {
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
+
 
   // Método para actualizar una tarea existente
   updateTask(updatedTask: Task): Observable<Task> {

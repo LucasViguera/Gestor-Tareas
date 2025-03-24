@@ -7,7 +7,7 @@ import { provideHttpClient } from '@angular/common/http';
 
 // Importación de componentes standalone
 import { HomeComponent } from './components/home/home.component';
-import { TaskComponent } from './components/tasks-list/tasks-list.component';
+import { TaskListComponent } from './components/tasks-list/tasks-list.component';
 
 // Angular Material Modules
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,7 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Servicios
-import { TaskService } from './task.service';
+import { TaskService } from './services/task.service';
 
 @NgModule({
   imports: [
@@ -25,7 +25,7 @@ import { TaskService } from './task.service';
     RouterModule,      // Manejo de rutas
     FormsModule,       // Manejo de formularios
     HomeComponent,     // Componente de inicio // 
-    TaskComponent,      // Componente de lista de tareas
+    TaskListComponent,      // Componente de lista de tareas
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,

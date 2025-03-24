@@ -1,7 +1,36 @@
 <div class="calendar-container">
   <h2>Calendario de Tareas</h2>
-  <mwl-calendar-month-view
-    [viewDate]="viewDate"
-    [events]="events">
-  </mwl-calendar-month-view>
+
+  <!-- Contenedor de calendario y tareas -->
+  <div class="calendar-and-tasks">
+    <!-- Contenedor para el calendario con botones de navegación en la parte superior -->
+    <div class="calendar">
+      <!-- Título con el mes y año actual -->
+      <div class="calendar-header">
+        <button (click)="navigateMonth(-1)">◀</button>
+        <span>{{ viewDate | date:'MMMM yyyy':'es' }}</span>
+        <button (click)="navigateMonth(1)">▶</button>
+      </div>
+
+      <!-- Vista del calendario -->
+      <mwl-calendar-month-view
+        [viewDate]="viewDate"
+        [events]="events"
+        [locale]="'es'"
+        [weekStartsOn]="weekStartsOn">
+      </mwl-calendar-month-view>
+    </div>
+
+    <!-- Lista de tareas -->
+    <div class="tasks">
+      <h3>Tareas</h3>
+      <ul>
+        <li *ngFor="let task of tasks">
+          <strong>{{ task.title }}</strong><br />
+          <span class="task-date">{{ task.startDate | date:'dd-MM-yy' }} - {{ task.endDate | date:'dd-MM-yy' }}</span><br />
+          <span>{{ task.description }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

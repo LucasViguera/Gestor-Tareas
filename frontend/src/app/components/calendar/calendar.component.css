@@ -1,59 +1,143 @@
+/* Contenedor principal */
 .calendar-container {
   padding: 20px;
   background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  height: 500px; /* Ajusta la altura */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif; /* Fuentes más modernas */
+  max-width: 1200px; /* Limitar el ancho máximo */
+  margin: 0 auto; /* Centrar el contenedor */
 }
 
-#calendar {
-  width: 100%;
-  height: 100%;  /* Ocupa todo el espacio disponible */
+/* Contenedor para el calendario y las tareas */
+.calendar-and-tasks {
+  display: flex;
+  gap: 20px; /* Espacio entre el calendario y la lista de tareas */
+  justify-content: space-between; /* Alinea los elementos hacia los bordes */
+  align-items: flex-start;
+  flex-wrap: wrap; /* Permite que los elementos se ajusten a pantallas más pequeñas */
 }
 
-h2 {
-  text-align: center;
-}
-
-.event {
+/* Contenedor del calendario */
+.calendar {
+  flex: 1;
+  max-width: 60%; /* El calendario ocupa el 60% del contenedor */
+  display: flex;
+  flex-direction: column;
   background-color: #fff;
+  border-radius: 10px;
   padding: 10px;
-  margin: 10px 0;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.form-container {
-  margin-top: 30px;
-}
-
-.form-group {
+/* Estilo de la cabecera del calendario */
+.calendar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
 }
 
-.form-group label {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 5px;
+button {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  outline: none;
 }
 
-.form-control {
-  width: 100%;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+button:hover {
+  background-color: #0056b3;
 }
 
-.error-message {
-  color: red;
+/* Título con el mes y año */
+.calendar-header span {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin: 0 15px;
+}
+
+/* Contenedor de tareas */
+.tasks {
+  flex: 1;
+  max-width: 35%; /* Las tareas ocupan el 35% del contenedor */
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  height: 500px;
+  overflow-y: auto;
+}
+
+/* Título de las tareas */
+.tasks h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+/* Lista de tareas */
+.tasks ul {
+  list-style: none;
+  padding: 0;
+}
+
+.tasks li {
+  padding: 12px;
+  margin-bottom: 12px;
+  background-color: #f2f2f2;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tasks li:last-child {
+  margin-bottom: 0;
+}
+
+/* Tareas individuales */
+.tasks li strong {
+  font-size: 1.1em;
+  color: #333;
+}
+
+.tasks li span {
+  font-size: 0.9em;
+  color: #555;
+}
+
+/* Fecha de la tarea */
+.tasks li .task-date {
+  font-size: 0.85em;
+  color: #999;
+  margin-top: 5px;
+}
+
+/* Mejorar la visibilidad de las tareas dentro del calendario */
+.mwl-calendar-month-view .cal-day-event {
+  border-radius: 6px;
   font-size: 12px;
+  padding: 6px;
+  text-align: center;
+  color: white;
+  margin: 2px;
 }
 
-.alert {
-  margin-top: 10px;
+/* Estilos de eventos con color según prioridad */
+.mwl-calendar-month-view .cal-day-event.low-priority {
+  background-color: #8bc34a;
 }
 
-button:disabled {
-  background-color: #d6d6d6;
+.mwl-calendar-month-view .cal-day-event.medium-priority {
+  background-color: #ffc107;
+}
+
+.mwl-calendar-month-view .cal-day-event.high-priority {
+  background-color: #f44336;
 }

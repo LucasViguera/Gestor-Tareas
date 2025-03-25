@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';  // Importa jwt-decode
 import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router'; 
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class AuthService {
 
   private apiUrl = 'http://localhost:3000/auth';  // URL de la API de autenticación
   private http = inject(HttpClient);
-  
+  private router = inject(Router); // inyecto esto para poder usar las rutas en mi logout.
   
   // Método para registrar un nuevo usuario
   register(user: { username: string; email: string; password: string }): Observable<any> {
@@ -29,7 +30,7 @@ export class AuthService {
       })
     );
   }
-
+  
   // Método para verificar si el usuario está autenticado (si tiene un token)
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');  // Verifica si el token está en el localStorage
@@ -52,7 +53,8 @@ export class AuthService {
 
   // Método para cerrar sesión eliminando el token del localStorage
   logout(): void {
-    localStorage.removeItem('token');  // Elimina el token del localStorage
+    localStorage.removeItem('token'); 
+    this.router.navigate(['/home']);   // Elimina el token del localStorage
   }
 
   // Método para obtener las cabeceras con el token para hacer peticiones autenticadas

@@ -81,13 +81,13 @@
     </div>
 
   <!-- Campo Asignado a -->
+  <label for="assignee">Asignado a</label>
   <select 
   id="assignee" 
   [(ngModel)]="assigneeId" 
   name="assignee" 
   class="form-control"
-  required
->
+  required> 
   <option value="" disabled>Selecciona un usuario</option>
   <option *ngFor="let user of users" [ngValue]="user.id">{{ user.username }}</option>
 </select>

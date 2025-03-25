@@ -12,6 +12,7 @@
     font-weight: 500;
     font-size: 1rem;
     transition: color 0.3s ease, transform 0.3s ease; /* Transición suave */
+    padding: 10px 15px; /* Añadido padding para alinear */
 }
 
 /* Color de los enlaces cuando están activos */
@@ -38,6 +39,26 @@
 /* Efecto hover en el logo */
 .navbar .navbar-brand:hover {
     color: #D1D1D1; /* Gris muy suave en hover */
+}
+
+/* Estilo del botón Cerrar sesión */
+.navbar-dark .navbar-nav .logout-btn {
+    color: #FF5A5F; /* Rojo suave para destacar el botón */
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+    background: none;
+    border: none;
+    padding: 10px 15px; /* Igual que los otros botones */
+    text-decoration: none;
+    display: inline-block; /* Para que se vea igual que los enlaces */
+    margin-left: 10px; /* Añadimos margen izquierdo para separación */
+}
+
+/* Hover en el botón de cerrar sesión */
+.navbar-dark .navbar-nav .logout-btn:hover {
+    color: #D33F49; /* Rojo más oscuro en hover */
+    transform: scale(1.05); /* Efecto de zoom */
 }
 
 /* Estilos del botón de menú en dispositivos móviles */

@@ -2,18 +2,19 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';  // Para redirigir al usuario
+import { Router, RouterModule } from '@angular/router';  // Para redirigir al usuario
 import Swal from 'sweetalert2';  // Importamos SweetAlert2
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],  // Importa módulos necesarios
+  imports: [CommonModule, ReactiveFormsModule, RouterModule ],  // Importa módulos necesarios
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  loginForm = new FormGroup({
+
+loginForm = new FormGroup({
     email: new FormControl<string>('', [Validators.required, Validators.email]),  // Tipo string explícito
     password: new FormControl<string>('', Validators.required)  // Tipo string explícito
   });

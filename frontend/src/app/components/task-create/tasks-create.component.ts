@@ -98,9 +98,10 @@ export class TaskCreateComponent implements OnInit {
       assigneeId: this.assigneeId ?? null,
       completed: false,
     };
+    
   
     this.taskService.saveTask(newTask).subscribe({
-      next: (response: any) => {
+      next: (_response: any) => {
         taskForm.resetForm();
         this.errorMessage = null;
   

@@ -51,10 +51,6 @@ export class AuthService {
     return null;
   }
 
-
-
-  
-
   // Método para obtener el rol del usuario desde el token JWT
   getUserRole(): string | null {
     const token = localStorage.getItem('token');
@@ -69,11 +65,6 @@ export class AuthService {
   isAdmin(): boolean {
     return this.getUserRole() === 'ADMIN'; // Verifica si el rol es 'ADMIN'
   }
-
-
-
-
-
 
   // Método para cerrar sesión eliminando el token del localStorage
   logout(): void {

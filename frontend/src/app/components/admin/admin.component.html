@@ -38,6 +38,14 @@
     </table>
   </div>
 
+  
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+  
   <!-- Mensaje si no hay usuarios -->
   <div *ngIf="!loading && users.length === 0 && showUsersList" class="no-users">
     No hay usuarios para mostrar.

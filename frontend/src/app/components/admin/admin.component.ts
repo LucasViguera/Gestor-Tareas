@@ -57,7 +57,6 @@ export class AdminComponent implements OnInit {
       this.userService.deleteUser(userId).subscribe({
         next: () => {
           this.successMessage = 'Usuario eliminado con éxito.';
-          // Elimina el usuario de la lista sin hacer otra solicitud
           this.users = this.users.filter(user => user.id !== userId);
           this.loading = false;
         },

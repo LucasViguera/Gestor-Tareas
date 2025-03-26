@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   imports:[CommonModule]
 })
 export class NavbarComponent {
-  constructor(private authService: AuthService) {}
+  constructor(public authService: AuthService) {}
 
   
   isLoggedIn(): boolean {
@@ -19,5 +19,9 @@ export class NavbarComponent {
   
   logout() {
     this.authService.logout();
+  }
+  
+  isAdmin(): boolean {
+    return this.authService.isAdmin(); // Verifica si el rol es ADMIN
   }
 }

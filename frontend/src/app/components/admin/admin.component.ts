@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';  // Asegúrate de tener el servicio AuthService
-
+import { Router } from '@angular/router'; 
 @Component({
   selector: 'app-admin',
   standalone: true,
@@ -19,13 +19,14 @@ export class AdminComponent implements OnInit {
   
   constructor(
     private userService: UserService,
-    private authService: AuthService  // Inyectamos el servicio Auth
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     // Verificamos si el usuario está autenticado antes de cargar los datos
     if (!this.authService.isAuthenticated()) {
-      this.errorMessage = 'No tienes permisos para acceder a esta página. Por favor, inicia sesión.';
+      this.router.navigate(['/login']); // Redirigir al usuario al login
     }
   }
 
@@ -50,22 +51,20 @@ export class AdminComponent implements OnInit {
 
   // Método para eliminar un usuario
   deleteUser(userId: number) {
-    // Confirmamos que el usuario realmente desea eliminarlo
     if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
-      this.loading = true;  // Indicamos que estamos en proceso de eliminación
+      this.loading = true;
   
-      // Llamamos al servicio para eliminar el usuario
       this.userService.deleteUser(userId).subscribe({
         next: () => {
-          // Si la eliminación es exitosa, mostramos un mensaje y recargamos la lista de usuarios
           this.successMessage = 'Usuario eliminado con éxito.';
-          this.getUsers();  // Recargamos la lista de usuarios
+          // Elimina el usuario de la lista sin hacer otra solicitud
+          this.users = this.users.filter(user => user.id !== userId);
+          this.loading = false;
         },
         error: (err) => {
-          // Si ocurre un error, mostramos un mensaje de error
           this.errorMessage = 'Error al eliminar usuario. Intenta nuevamente más tarde.';
           console.error('Error al eliminar usuario:', err);
-          this.loading = false;  // Termina el estado de carga
+          this.loading = false;
         }
       });
     }

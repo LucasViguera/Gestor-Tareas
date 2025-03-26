@@ -12,10 +12,11 @@ import { CommonModule } from '@angular/common';
 export class NavbarComponent {
   constructor(private authService: AuthService) {}
 
+  
   isLoggedIn(): boolean {
     return this.authService.isAuthenticated();
   }
-
+  
   logout() {
     this.authService.logout();
   }

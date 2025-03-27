@@ -97,12 +97,6 @@
   background-color: #D32F2F;
 }
 
-/* Fila de tareas completadas */
-.completed {
-  background-color: #E8F5E9; /* Fondo verde claro para tareas completadas */
-  text-decoration: line-through; /* Tachar el texto */
-}
-
 /* Ajustes de media query para pantallas pequeñas */
 @media (max-width: 768px) {
   .task-table th, .task-table td {
@@ -114,3 +108,14 @@
       padding: 6px 12px;
   }
 }
+
+
+.completed-task td {
+  text-decoration: line-through; /* Tachado solo en las celdas de la tarea */
+  background-color: #f0f0f0; /* Opcional: Cambiar el fondo para las tareas completadas */
+}
+
+.task-table input[type="checkbox"] {
+  cursor: pointer;
+}
+

@@ -1,37 +1,30 @@
-<div class="stats-container">
-    <h2>Estadísticas de Tareas</h2>
-  
-    <div class="stats-card">
-      <h3>Total de Tareas</h3>
-      <p>{{ getTotalTasks() }}</p>
+<div *ngIf="usersStats.length">
+  <!-- Barra de progreso general -->
+  <div class="progress-bar-container">
+    <div class="progress-bar">
+      <div class="completed" [style.width.%]="getCompletedPercentage()"></div>
     </div>
-  
-    <div class="stats-card">
-      <h3>Tareas Completadas</h3>
-      <p>{{ getCompletedTasks() }}</p>
-    </div>
-  
-    <div class="stats-card">
-      <h3>Tareas Pendientes</h3>
-      <p>{{ getPendingTasks() }}</p>
-    </div>
-  
-    <div class="chart-container">
-      <h3>Distribución de Tareas</h3>
-      <ngx-charts-pie-chart
-        [view]="view"
-        [results]="multi"
-        [legend]="showLabels"
-        [doughnut]="true">
-      </ngx-charts-pie-chart>
-    </div>
-  
-    <div class="progress-container">
-      <h3>Porcentaje de Tareas Completadas</h3>
-      <div class="progress-bar">
-        <div class="progress" [style.width.%]="getCompletionPercentage()"></div>
+    <p>{{ completedTasks }} Completadas - {{ totalTasks - completedTasks }} Pendientes</p>
+  </div>
+
+  <!-- Tarjetas con estadísticas por usuario -->
+  <div class="card-container">
+    <div *ngFor="let user of usersStats" class="card">
+      <!-- Icono de tareas completadas -->
+      <div class="card-icon">
+        <i class="fas fa-check-circle"></i>
       </div>
-      <p>{{ getCompletionPercentage() }}%</p>
+      <div class="card-content">
+        <h3>{{ user.username }}</h3>
+        <p><i class="fas fa-tasks"></i> Total Tareas: {{ user.totalTasks }}</p>
+        <p><i class="fas fa-check"></i> Tareas Completadas: {{ user.completedTasks }}</p>
+        <p><i class="fas fa-clock"></i> Tareas Pendientes: {{ user.pendingTasks }}</p>
+      </div>
     </div>
   </div>
-  
+</div>
+
+<!-- Mensaje de error -->
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>

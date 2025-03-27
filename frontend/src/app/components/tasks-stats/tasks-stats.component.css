@@ -1,49 +1,76 @@
-.stats-container {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  h2 {
-    font-size: 2em;
-    margin-bottom: 20px;
-  }
-  
-  .stats-card {
-    background-color: #f1f1f1;
-    padding: 15px;
-    margin: 15px 0;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .stats-card h3 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-  }
-  
-  .stats-card p {
-    font-size: 1.2em;
-    font-weight: bold;
-  }
-  
-  .progress-container {
-    margin-top: 30px;
-  }
-  
-  .progress-bar {
-    background-color: #e0e0e0;
-    border-radius: 10px;
-    width: 100%;
-    height: 25px;
-    margin-top: 10px;
-  }
-  
-  .progress {
-    height: 100%;
-    background-color: #4CAF50;
-    border-radius: 10px;
-    transition: width 0.5s ease-in-out;
-  }
-  
+/* Contenedor de la barra de progreso */
+.progress-bar-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 30px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  position: relative;
+}
+
+.completed {
+  height: 100%;
+  background-color: #76c7c0; /* Color de la barra de progreso */
+  border-radius: 5px;
+}
+
+p {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Estilos para las tarjetas */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 250px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* Estilos para los iconos */
+.card-icon {
+  font-size: 50px;
+  color: #76c7c0; /* Color de los iconos */
+  margin-bottom: 10px;
+}
+
+.card-content h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card-content p {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+/* Estilos de error */
+.error-message {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+}

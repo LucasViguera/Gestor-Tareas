@@ -8,18 +8,18 @@
         <th>Fecha de Inicio</th>
         <th>Fecha de Fin</th>
         <th>Prioridad</th>
-        <th>Asignado a</th> <!-- Nueva columna -->
+        <th>Asignado a</th>
         <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let task of tasks">
+      <tr *ngFor="let task of tasks" [ngClass]="{'completed-task': task.completed}">
         <td>{{ task.title }}</td>
         <td>{{ task.description }}</td>
         <td>{{ task.startDate | date:'dd-MM-yyyy' }}</td>
         <td>{{ task.endDate | date:'dd-MM-yyyy' }}</td>
         <td>{{ task.priority }}</td>
-        <td>{{ getUsername(task.assigneeId) }}</td> <!-- Mostrar username -->
+        <td>{{ getUsername(task.assigneeId) }}</td>
         <td class="actions">
           <button class="btn edit-btn" (click)="editTask(task)">
             Editar
@@ -27,6 +27,8 @@
           <button class="btn delete-btn" (click)="deleteTask(task.id)">
             Eliminar
           </button>
+          <!-- Checkbox para marcar como completada -->
+          <input type="checkbox" [checked]="task.completed === 1" (change)="markComplete(task)" />
         </td>
       </tr>
     </tbody>

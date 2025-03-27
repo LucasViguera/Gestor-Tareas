@@ -25,7 +25,7 @@ export class TaskCreateComponent implements OnInit {
   priority: string = 'media';
   assigneeId: number | null = null; // Ahora es solo el ID
   errorMessage: string | null = null;
-  completed: boolean;
+  completed: number;
 
   users: any[] = [];
   selectedUser: any = null;
@@ -35,7 +35,7 @@ export class TaskCreateComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService
   ) { 
-    this.completed = false;
+    this.completed = 0;
   }
 
   ngOnInit(): void {
@@ -96,7 +96,7 @@ export class TaskCreateComponent implements OnInit {
       endDate: this.endDate,
       priority: this.priority,
       assigneeId: this.assigneeId ?? null,
-      completed: false,
+      completed: 0,
     };
     
   

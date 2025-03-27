@@ -4,9 +4,6 @@ import { TaskService } from '../../services/task.service';  // Asegúrate de que
 import { UserService } from '../../services/user.service';  // Asegúrate de que el servicio de usuarios esté importado
 import { Task } from '../../models/task.model';  // Asegúrate de tener una interfaz de Task para tipado correcto
 
-
-import { format } from 'date-fns'; 
-
 @Component({
   selector: 'app-task',
   templateUrl: './tasks-list.component.html',
@@ -76,41 +73,30 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  // Cambiar estado de completado
-  toggleCompletion(taskId: number): void {
-    const task = this.tasks.find(task => task.id === taskId);
-    if (task) {
-      task.completed = !task.completed;
-      this.taskService.updateTask(task).subscribe({
-        next: (updatedTask) => {
-          console.log('Tarea actualizada:', updatedTask);
-        },
-        error: (error: any) => {
-          console.error('Error al actualizar tarea:', error);
-        }
-      });
-    }
-  }
-
   // Método para editar una tarea
   editTask(task: Task): void {
     console.log('Editar tarea:', task);
   }
 
-  // Cambiar estado de completado
+  // Cambiar estado de completado (unificado con markComplete)
   markComplete(task: Task): void {
     // Cambia el estado de completado de la tarea
-    task.completed = !task.completed;
+    task.completed = task.completed === 0 ? 1 : 0; // Alterna entre 1 y 0
 
     // Llamamos al servicio para actualizar la tarea en el backend
     this.taskService.updateTask(task).subscribe({
       next: (updatedTask: Task) => {
         console.log('Tarea actualizada:', updatedTask);
-        // Si es necesario, actualiza alguna otra parte del UI, o agrega lógica adicional aquí.
+        
+        // Actualiza la tarea en la lista de tareas
+        const index = this.tasks.findIndex(t => t.id === updatedTask.id);
+        if (index !== -1) {
+          this.tasks[index] = updatedTask; // Reemplaza la tarea actualizada
+        }
       },
       error: (error: any) => {
         console.error('Error al actualizar tarea:', error);
-        // Si ocurre un error, podrías mostrar un mensaje en el UI o revertir el cambio realizado.
+        this.errorMessage = 'Hubo un problema al cambiar el estado de la tarea.';
       }
     });
   }

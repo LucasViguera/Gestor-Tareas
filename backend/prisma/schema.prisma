@@ -27,5 +27,5 @@ model Task {
   priority    String
   assigneeId  Int  // Referencia al usuario asignado
   assignee    User @relation("AssignedTasks", fields: [assigneeId], references: [id]) // Relación con User
-  completed   Boolean
+  completed   Int      @default(0)  // Almacenará 0 o 1
 }

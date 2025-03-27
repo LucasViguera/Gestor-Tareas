@@ -6,5 +6,5 @@ export interface Task {
   endDate: string;        // Fecha de finalización
   priority: string;       // Prioridad (baja, media, alta)
   assigneeId: number | null; 
-  completed: boolean;     // Estado de la tarea (completada o no)
+  completed: number;     // Estado de la tarea (completada o no)
 }

@@ -14,12 +14,12 @@
     </thead>
     <tbody>
       <tr *ngFor="let task of tasks" [ngClass]="{'completed-task': task.completed}">
-        <td>{{ task.title }}</td>
-        <td>{{ task.description }}</td>
-        <td>{{ task.startDate | date:'dd-MM-yyyy' }}</td>
-        <td>{{ task.endDate | date:'dd-MM-yyyy' }}</td>
-        <td>{{ task.priority }}</td>
-        <td>{{ getUsername(task.assigneeId) }}</td>
+        <td class="tarea">{{ task.title }}</td>
+        <td class="tarea">{{ task.description }}</td>
+        <td class="tarea">{{ task.startDate | date:'dd-MM-yyyy' }}</td>
+        <td class="tarea">{{ task.endDate | date:'dd-MM-yyyy' }}</td>
+        <td class="tarea">{{ task.priority }}</td>
+        <td class="tarea">{{ getUsername(task.assigneeId) }}</td>
         <td class="actions">
           <button class="btn edit-btn" (click)="editTask(task)">
             Editar

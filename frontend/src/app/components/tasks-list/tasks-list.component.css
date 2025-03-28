@@ -110,7 +110,7 @@
 }
 
 
-.completed-task td {
+.completed-task .tarea {
   text-decoration: line-through; /* Tachado solo en las celdas de la tarea */
   background-color: #f0f0f0; /* Opcional: Cambiar el fondo para las tareas completadas */
 }

@@ -11,11 +11,11 @@ const app = express();
 const port = process.env.PORT || 3000
 
 // Configuración de CORS
-const corsOptions = {
-  origin: 'https://gestor-tareas-rust.vercel.app',  
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-};
+app.use(cors({
+  origin: "https://gestor-tareas-rust.vercel.app", 
+  methods: "GET, POST, PUT, DELETE",
+  allowedHeaders: "Content-Type, Authorization"
+}));
 
 app.use(cors(corsOptions));
 

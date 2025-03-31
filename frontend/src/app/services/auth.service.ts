@@ -11,7 +11,7 @@ import { environment } from '../environments/environment';
 })
 export class AuthService {
 
-  private apiUrl =  environment.apiUrl|| 'http://localhost:3000/auth';  // URL de la API de autenticación
+  private apiUrl =  environment.authUrl || 'http://localhost:3000/auth';  // URL de la API de autenticación
   private http = inject(HttpClient);
   private router = inject(Router); // inyecto esto para poder usar las rutas en mi logout.
   

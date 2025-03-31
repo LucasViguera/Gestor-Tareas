@@ -8,7 +8,7 @@ import { environment } from '../environments/environment';
   providedIn: 'root'
 })
 export class TaskService {
-  private apiUrl = environment.apiUrl||'http://localhost:3000/tasks';  // Asegúrate de que la URL sea la correcta
+  private apiUrl = environment.tasksUrl||'http://localhost:3000/tasks';  // Asegúrate de que la URL sea la correcta
 
   constructor(private http: HttpClient) {}
 

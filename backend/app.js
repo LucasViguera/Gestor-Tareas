@@ -13,17 +13,12 @@ const port = process.env.PORT || 3000
 // Configuración de CORS
 const corsOptions = {
   origin: 'https://gestor-tareas-rust.vercel.app',  
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
 app.use(cors(corsOptions));
 
-
-// Middleware para manejar solicitudes OPTIONS
-app.options('*', (_req, res) => {
-  res.status(200).end(); // Responde con un 200 OK para todas las solicitudes OPTIONS
-});
 
 // Middleware para manejar datos JSON
 app.use(express.json());
@@ -37,5 +32,5 @@ app.use("/users", userRoutes);
 
 
 app.listen(port, () => {
-  console.log("Servidor corriendo en puerto ${port}");
+  console.log(`Servidor corriendo en puerto ${port}`);
 });

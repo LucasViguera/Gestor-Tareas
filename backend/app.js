@@ -8,13 +8,15 @@ import "./src/database/db.js";
 
 dotenv.config();
 const app = express();
+const port = process.env.PORT || 3000
 
 // Configuración de CORS
 const corsOptions = {
-  origin: 'http://localhost:4200',  // Cambia esto si tu frontend está en otro puerto
+  origin: process.env.FRONTEND_URL || 'http://localhost:4200',  
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
+
 app.use(cors(corsOptions));
 
 
@@ -34,6 +36,6 @@ app.use("/tasks", taskRoutes); // Prefijo '/tasks' para las rutas de tareas
 app.use("/users", userRoutes);
 
 // Iniciar servidor en el puerto 3000
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log("Servidor corriendo en http://localhost:3000");
 });

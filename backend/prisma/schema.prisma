@@ -4,28 +4,30 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL") // La URL de tu base de datos
+  url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
-  username  String
-  role      String   @default("USER") // Agregar el campo `role` con un valor por defecto si es necesario
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  tasks     Task[]   @relation("AssignedTasks") // Esta es la relación inversa
-}
-
-model Task {
-  id          Int    @id @default(autoincrement()) 
+model task {
+  id          Int      @id @default(autoincrement())
   title       String
   description String
-  startDate   DateTime
   endDate     DateTime
   priority    String
-  assigneeId  Int  // Referencia al usuario asignado
-  assignee    User @relation("AssignedTasks", fields: [assigneeId], references: [id]) // Relación con User
-  completed   Int      @default(0)  // Almacenará 0 o 1
+  startDate   DateTime
+  assigneeId  Int
+  completed   Int      @default(0)
+  user        user     @relation(fields: [assigneeId], references: [id], map: "Task_assigneeId_fkey")
+
+  @@index([assigneeId], map: "Task_assigneeId_fkey")
+}
+
+model user {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique(map: "User_email_key")
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  username  String
+  role      String   @default("USER")
+  task      task[]
 }

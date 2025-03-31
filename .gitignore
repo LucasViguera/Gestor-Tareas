@@ -12,14 +12,6 @@
 /Desktop/
 
 
-# Ignorar todo en la raíz del proyecto
-/*
-
-# Pero no ignorar las carpetas y archivos específicos que necesitamos
-!backend/src/
-!backend/app.js
-!frontend/src/
-
 # Asegúrate de que también no se sigan los archivos no deseados
 node_modules/
 *.log

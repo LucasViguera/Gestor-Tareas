@@ -1,0 +1,89 @@
+/* Estilo para el formulario */
+form {
+  background-color: #ffffff;
+  padding: 20px; /* Reducido el padding para que ocupe menos espacio */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 360px; /* Reducido el tamaño máximo */
+  margin: 20px auto; /* Margen reducido */
+  font-family: Arial, sans-serif;
+  overflow: hidden; /* Elimina la barra de desplazamiento */
+}
+
+/* Título */
+h2 {
+  text-align: center;
+  margin-bottom: 20px; /* Reducido el margen inferior */
+  font-size: 1.6rem; /* Reducido el tamaño de la fuente */
+  color: #2d3a3a;
+}
+
+/* Estilo para las etiquetas */
+label {
+  font-size: 0.95rem; /* Reducido el tamaño de la fuente */
+  font-weight: bold;
+  color: #2d3a3a;
+  margin-bottom: 6px; /* Reducido el margen */
+  display: block;
+}
+
+/* Estilo para los campos de entrada */
+input {
+  width: 100%;
+  padding: 10px; /* Reducido el padding dentro de los campos */
+  margin-bottom: 12px; /* Reducido el margen inferior */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #333;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+/* Estilo para los mensajes de error */
+.error {
+  color: #e74c3c;
+  font-size: 0.85rem; /* Reducido el tamaño de la fuente */
+  margin-top: 5px;
+}
+
+/* Estilo para el botón de registro */
+button {
+  width: 100%;
+  padding: 10px; /* Reducido el padding del botón */
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 1rem; /* Reducido el tamaño de la fuente */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:disabled {
+  background-color: #c8e6c9;
+  cursor: not-allowed;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Estilo para el enlace a la página de login */
+.switch a {
+  display: block;
+  text-align: center;
+  margin-top: 12px; /* Reducido el margen superior */
+  color: #3498db;
+  font-size: 0.95rem; /* Reducido el tamaño de la fuente */
+  text-decoration: none;
+}
+
+.switch a:hover {
+  text-decoration: underline;
+}

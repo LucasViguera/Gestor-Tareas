@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';  // Importa jwt-decode
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router'; 
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:3000/auth';  // URL de la API de autenticación
+  private apiUrl =  environment.apiUrl|| 'http://localhost:3000/auth';  // URL de la API de autenticación
   private http = inject(HttpClient);
   private router = inject(Router); // inyecto esto para poder usar las rutas en mi logout.
   

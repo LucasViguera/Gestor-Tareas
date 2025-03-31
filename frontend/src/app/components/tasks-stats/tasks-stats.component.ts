@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { User, UserTaskStats } from '../../models/user.model';
 import { Task } from '../../models/task.model';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-tasks-stats',
@@ -13,11 +14,10 @@ import { Task } from '../../models/task.model';
 })
 export class TasksStatsComponent implements OnInit {
   usersStats: UserTaskStats[] = [];  // Usamos la interfaz extendida que incluye estadísticas
-  errorMessage: string | null = null;
-
+  errorMessage: string | null = null; 
   totalTasks: number = 0;
   completedTasks: number = 0;
-
+  private apiUrl = environment.apiUrl||'http://localhost:3000/users'; 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -34,7 +34,7 @@ export class TasksStatsComponent implements OnInit {
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    this.http.get<User[]>('http://localhost:3000/users', { headers }).subscribe({
+    this.http.get<User[]>(this.apiUrl, { headers }).subscribe({
       next: (data: User[]) => {
         this.usersStats = data.map(user => {
           const tasksArray: Task[] = user.tasks ?? [];

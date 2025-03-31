@@ -35,7 +35,7 @@ app.use("/tasks", taskRoutes); // Prefijo '/tasks' para las rutas de tareas
 
 app.use("/users", userRoutes);
 
-// Iniciar servidor en el puerto 3000
+
 app.listen(port, () => {
-  console.log("Servidor corriendo en http://localhost:3000");
+  console.log("Servidor corriendo en puerto ${port}");
 });

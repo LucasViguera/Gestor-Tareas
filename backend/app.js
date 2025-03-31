@@ -17,7 +17,6 @@ app.use(cors({
   allowedHeaders: "Content-Type, Authorization"
 }));
 
-app.use(cors);
 
 
 // Middleware para manejar datos JSON

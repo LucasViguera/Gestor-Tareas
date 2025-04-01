@@ -1,15 +1,15 @@
 /* Contenedor principal de la lista de tareas */
 .task-list-container {
-  background-color: #FFF; /* Fondo blanco para la lista de tareas */
+  background-color: #FFF;
   padding: 30px;
-  border-radius: 8px; /* Bordes redondeados */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   max-width: 1200px;
-  margin: 20px auto; /* Centrado horizontal */
-  text-align: left; /* Alineación a la izquierda para el texto */
+  margin: 20px auto;
+  text-align: left;
 }
 
-/* Título de la lista de tareas */
+/* Título de la lista */
 .task-list-container h2 {
   font-size: 2rem;
   font-weight: 600;
@@ -18,44 +18,46 @@
   text-align: center;
 }
 
-/* Estilo de la tabla de tareas */
+/* Contenedor para scroll horizontal en pantallas grandes si es necesario */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Estilos de la tabla */
 .task-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-/* Encabezados de la tabla */
 .task-table th, .task-table td {
   padding: 12px;
   text-align: left;
   font-size: 1rem;
   border-bottom: 1px solid #ddd;
-  white-space: normal; /* Asegura que el texto pueda ocupar varias líneas */
+  white-space: normal;
 }
 
-/* Estilo para los encabezados */
 .task-table th {
-  background-color: #333; /* Fondo oscuro para el encabezado */
-  color: #F1F1F1; /* Blanco para los encabezados */
+  background-color: #333;
+  color: #F1F1F1;
   font-weight: 600;
 }
 
-/* Estilo para las celdas */
 .task-table td {
-  background-color: #FFF; /* Fondo blanco para las celdas */
+  background-color: #FFF;
   color: #333;
 }
 
-/* Ajustes para las acciones (botones) dentro de la tabla */
+/* Acciones y botones */
 .actions {
   display: flex;
-  flex-wrap: wrap; /* Permite que los botones se acomoden de manera flexible */
+  flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
 }
 
-/* Estilo para los botones */
 .btn {
   padding: 8px 16px;
   border: none;
@@ -64,58 +66,93 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   display: inline-block;
-  white-space: nowrap; /* Evita que el texto dentro de los botones se divida */
+  white-space: nowrap;
 }
 
-/* Botón de completar tarea */
-.complete-btn {
-  background-color: #4CAF50; /* Verde */
-  color: white;
-}
-
-.complete-btn:hover {
-  background-color: #45a049;
-}
-
-/* Botón de editar tarea */
 .edit-btn {
-  background-color: #2196F3; /* Azul */
+  background-color: #2196F3;
   color: white;
 }
-
 .edit-btn:hover {
   background-color: #1976D2;
 }
 
-/* Botón de eliminar tarea */
 .delete-btn {
-  background-color: #F44336; /* Rojo */
+  background-color: #F44336;
   color: white;
 }
-
 .delete-btn:hover {
   background-color: #D32F2F;
-}
-
-/* Ajustes de media query para pantallas pequeñas */
-@media (max-width: 768px) {
-  .task-table th, .task-table td {
-      font-size: 0.9rem;
-  }
-
-  .btn {
-      font-size: 0.8rem;
-      padding: 6px 12px;
-  }
-}
-
-
-.completed-task .tarea {
-  text-decoration: line-through; /* Tachado solo en las celdas de la tarea */
-  background-color: #f0f0f0; /* Opcional: Cambiar el fondo para las tareas completadas */
 }
 
 .task-table input[type="checkbox"] {
   cursor: pointer;
 }
 
+.completed-task .tarea {
+  text-decoration: line-through;
+  background-color: #f0f0f0;
+}
+
+/* Responsive: convertir tabla en tarjetas para móviles */
+@media (max-width: 768px) {
+  /* Mostrar la tabla en formato de bloques */
+  .task-table, 
+  .task-table thead, 
+  .task-table tbody, 
+  .task-table th, 
+  .task-table td, 
+  .task-table tr {
+    display: block;
+  }
+
+  /* Ocultar la cabecera */
+  .task-table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  /* Estilos para cada fila (tarjeta) */
+  .task-table tr {
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    padding: 10px;
+  }
+
+  /* Cada celda se muestra en bloque y se ajusta su padding para la etiqueta */
+  .task-table td {
+    border: none;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    padding-left: 50%;
+    text-align: left;
+  }
+
+  /* Pseudo-elemento para la etiqueta de cada columna */
+  .task-table td::before {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    width: 40%;
+    padding-right: 10px;
+    white-space: nowrap;
+    font-weight: bold;
+  }
+
+  /* Definir las etiquetas para cada columna según el orden */
+  .task-table td:nth-of-type(1)::before { content: "Título"; }
+  .task-table td:nth-of-type(2)::before { content: "Descripción"; }
+  .task-table td:nth-of-type(3)::before { content: "Fecha de Inicio"; }
+  .task-table td:nth-of-type(4)::before { content: "Fecha de Fin"; }
+  .task-table td:nth-of-type(5)::before { content: "Prioridad"; }
+  .task-table td:nth-of-type(6)::before { content: "Asignado a"; }
+  .task-table td:nth-of-type(7)::before { content: "Acciones"; }
+
+  /* Ajustes para botones en tarjetas */
+  .btn {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+}

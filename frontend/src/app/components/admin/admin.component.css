@@ -109,60 +109,43 @@
 
 /* Responsive: convertir tabla en tarjetas para móviles */
 @media (max-width: 768px) {
-  /* Tabla para pantallas grandes */
-  .table-responsive {
-    width: 100%;
-    overflow-x: auto;
-  }
-
-  .user-table {
-    display: none; /* Ocultamos la tabla en móviles */
-  }
-
-  /* Mostrar usuarios en formato de tarjetas */
-  .user-card {
+  .user-table,
+  .user-table thead,
+  .user-table tbody,
+  .user-table th,
+  .user-table td,
+  .user-table tr {
     display: block;
-    background-color: #fff;
+  }
+
+  /* Ocultar la cabecera de la tabla */
+  .user-table thead {
+    display: none;
+  }
+
+  /* Cada fila de la tabla se convierte en una tarjeta */
+  .user-table tr {
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 
-  .user-card h4 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-  }
-
-  .user-card .user-info {
-    margin-bottom: 10px;
-  }
-
-  .user-card .actions {
+  .user-table td {
+    border: none;
+    padding-left: 50%;
+    position: relative;
+    text-align: left;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
   }
 
-  .user-card .btn {
-    font-size: 0.8rem;
-    padding: 6px 12px;
-  }
-
-  /* Convertir cada fila en tarjeta */
-  .user-card .username::before {
-    content: "Nombre: ";
+  /* Etiquetas antes de cada dato */
+  .user-table td::before {
+    content: attr(data-label);
     font-weight: bold;
-  }
-  .user-card .email::before {
-    content: "Correo: ";
-    font-weight: bold;
-  }
-  .user-card .role::before {
-    content: "Rol: ";
-    font-weight: bold;
-  }
-  .user-card .actions::before {
-    content: "Acciones: ";
-    font-weight: bold;
+    position: absolute;
+    left: 10px;
   }
 }

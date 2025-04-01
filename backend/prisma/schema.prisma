@@ -26,8 +26,8 @@ model user {
   email     String   @unique(map: "User_email_key")
   password  String
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime @updatedAt
   username  String
   role      String   @default("USER")
-  task      task[]
+  tasks     task[]
 }

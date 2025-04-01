@@ -61,16 +61,23 @@
     color: #D33F49; /* Rojo más oscuro en hover */
     transform: scale(1.05); /* Efecto de zoom */
 }
-
-/* Estilos del botón de menú en dispositivos móviles */
+/* Botón de menú en dispositivos móviles */
 .navbar-toggler {
     border: none;
-    background-color: #8D8D8D; /* Gris intermedio para el botón de menú */
+    background-color: #555; /* Gris medio, más profesional y menos agresivo */
+    border-radius: 4px; /* Bordes ligeramente redondeados */
+    padding: 8px 12px; /* Ajusta el padding según necesites */
 }
 
+/* Ícono del menú personalizado */
 .navbar-toggler-icon {
-    background-color: #F1F1F1; /* Blanco suave para las líneas del menú */
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23fff' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 30px;
+    height: 30px;
 }
+
 
 /* Estilo del navbar en dispositivos pequeños */
 @media (max-width: 768px) {

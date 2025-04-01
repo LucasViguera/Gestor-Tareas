@@ -1,25 +1,25 @@
 /* Contenedor principal del panel de administración */
 .admin-panel-container {
-  background-color: #F9F9F9; /* Fondo claro y profesional */
+  background-color: #F9F9F9;
   padding: 30px;
-  border-radius: 8px; /* Bordes redondeados para un look moderno */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   max-width: 1200px;
-  margin: 20px auto; /* Centrado horizontal */
-  text-align: center; /* Centrado de todos los elementos dentro del contenedor */
+  margin: 20px auto;
+  text-align: center;
 }
 
 /* Título del panel de administrador */
 .admin-panel-container h2 {
   font-size: 2rem;
   font-weight: 600;
-  color: #333; /* Gris oscuro para el título */
+  color: #333;
   margin-bottom: 20px;
 }
 
 /* Estilos del botón principal */
 .admin-btn {
-  background-color: #4CAF50; /* Verde para resaltar */
+  background-color: #4CAF50;
   color: white;
   font-size: 1rem;
   padding: 12px 24px;
@@ -27,12 +27,12 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  display: inline-block; /* Permite que el botón se centre */
+  display: inline-block;
   margin: 10px 0;
 }
 
 .admin-btn:hover {
-  background-color: #45a049; /* Efecto hover más oscuro */
+  background-color: #45a049;
 }
 
 /* Estilo de la tabla de usuarios */
@@ -40,7 +40,6 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-  margin: 0 auto; /* Centra la tabla horizontalmente */
 }
 
 .user-table th, .user-table td {
@@ -51,20 +50,20 @@
 }
 
 .user-table th {
-  background-color: #333; /* Fondo oscuro para el encabezado */
-  color: #F1F1F1; /* Blanco para los encabezados */
+  background-color: #333;
+  color: #F1F1F1;
   font-weight: 600;
 }
 
 .user-table td {
-  background-color: #FFF; /* Fondo blanco para las celdas */
+  background-color: #FFF;
   color: #333;
 }
 
-/* Estilo de las acciones (botones de editar, eliminar, actualizar) */
+/* Estilo de las acciones (botones de editar, eliminar) */
 .actions {
   display: flex;
-  justify-content: center; /* Centra los botones de acción */
+  justify-content: center;
   gap: 10px;
 }
 
@@ -75,11 +74,10 @@
   font-size: 0.9rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  display: inline-block;
 }
 
 .edit-btn {
-  background-color: #2196F3; /* Azul para editar */
+  background-color: #2196F3;
   color: white;
 }
 
@@ -88,7 +86,7 @@
 }
 
 .delete-btn {
-  background-color: #F44336; /* Rojo para eliminar */
+  background-color: #F44336;
   color: white;
 }
 
@@ -96,47 +94,75 @@
   background-color: #D32F2F;
 }
 
-.refresh-btn {
-  background-color: #FF9800; /* Naranja para actualizar */
-  color: white;
-}
-
-.refresh-btn:hover {
-  background-color: #FB8C00;
-}
-
-/* Estilo de la sección de "Cargando..." */
 .loading {
   font-size: 1.2rem;
   color: #333;
   font-weight: 500;
 }
 
-/* Estilo de la sección cuando no hay usuarios */
 .no-users {
   font-size: 1.2rem;
-  color: #888; /* Gris para texto de no usuarios */
+  color: #888;
   text-align: center;
   margin-top: 20px;
 }
 
-/* Ajustes de media query para pantallas pequeñas */
+/* Responsive: convertir tabla en tarjetas para móviles */
 @media (max-width: 768px) {
-  .admin-panel-container {
-      padding: 20px;
+  /* Tabla para pantallas grandes */
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
   }
 
-  .user-table th, .user-table td {
-      font-size: 0.9rem;
+  .user-table {
+    display: none; /* Ocultamos la tabla en móviles */
   }
 
-  .admin-btn {
-      font-size: 0.9rem;
-      padding: 10px 20px;
+  /* Mostrar usuarios en formato de tarjetas */
+  .user-card {
+    display: block;
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 
-  .btn {
-      font-size: 0.8rem;
-      padding: 6px 12px;
+  .user-card h4 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .user-card .user-info {
+    margin-bottom: 10px;
+  }
+
+  .user-card .actions {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .user-card .btn {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  /* Convertir cada fila en tarjeta */
+  .user-card .username::before {
+    content: "Nombre: ";
+    font-weight: bold;
+  }
+  .user-card .email::before {
+    content: "Correo: ";
+    font-weight: bold;
+  }
+  .user-card .role::before {
+    content: "Rol: ";
+    font-weight: bold;
+  }
+  .user-card .actions::before {
+    content: "Acciones: ";
+    font-weight: bold;
   }
 }

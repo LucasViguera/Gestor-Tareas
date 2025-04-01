@@ -17,7 +17,7 @@ export class TasksStatsComponent implements OnInit {
   errorMessage: string | null = null; 
   totalTasks: number = 0;
   completedTasks: number = 0;
-  private apiUrl = environment.apiUrl||'http://localhost:3000/users'; 
+  private apiUrl = environment.usersUrl; 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {

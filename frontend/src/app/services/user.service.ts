@@ -8,7 +8,7 @@ import { environment } from '../environments/environment';
 })
 export class UserService {
   // URL base de la API (ajústala a la correcta)
-  private apiUrl = environment.usersUrl||'http://localhost:3000/users';  
+  private apiUrl = environment.usersUrl;  
 
   constructor(private http: HttpClient) { }
 

@@ -53,6 +53,7 @@
     text-decoration: none;
     display: inline-block; /* Para que se vea igual que los enlaces */
     margin-left: 10px; /* Añadimos margen izquierdo para separación */
+    cursor: pointer;
 }
 
 /* Hover en el botón de cerrar sesión */

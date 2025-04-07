@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';  // Importamos SweetAlert2
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],  // Importa módulos necesarios
+  imports: [CommonModule, ReactiveFormsModule, RouterModule], 
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
@@ -24,8 +24,6 @@ export class RegisterComponent {
   onSubmit() {
     if (this.registerForm.valid) {
       const formData = this.registerForm.value;
-  
-      // Aseguramos que los valores de username, email y password no sean null ni undefined
       const username = formData.username!;
       const email = formData.email!;
       const password = formData.password!;
@@ -34,7 +32,6 @@ export class RegisterComponent {
         next: (response) => {
           console.log('Usuario registrado', response);
           
-          // Usamos SweetAlert2 para mostrar un mensaje de éxito
           Swal.fire({
             title: 'Registro exitoso',
             text: '¡Bienvenido a nuestra plataforma!',
@@ -49,7 +46,6 @@ export class RegisterComponent {
         error: (error) => {
           console.error('Error en el registro', error);
           
-          // Usamos SweetAlert2 para mostrar un mensaje de error
           Swal.fire({
             title: 'Error en el registro',
             text: 'Hubo un problema con el registro. Por favor, intenta de nuevo.',
@@ -57,7 +53,7 @@ export class RegisterComponent {
             confirmButtonText: 'Aceptar',
             background: '#f8d7da',
             confirmButtonColor: '#d33',
-            timer: 2500  // La alerta se cierra automáticamente después de 2.5 segundos
+            timer: 2500  
           });
         },
         complete: () => {

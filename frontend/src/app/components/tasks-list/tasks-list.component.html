@@ -21,9 +21,6 @@
         <td class="tarea">{{ task.priority }}</td>
         <td class="tarea">{{ getUsername(task.assigneeId) }}</td>
         <td class="actions">
-          <button class="btn edit-btn" (click)="editTask(task)">
-            Editar
-          </button>
           <button class="btn delete-btn" (click)="deleteTask(task.id)">
             Eliminar
           </button>

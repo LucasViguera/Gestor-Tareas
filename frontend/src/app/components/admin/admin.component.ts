@@ -78,9 +78,4 @@ export class AdminComponent implements OnInit {
       });
     }
   }
-  // Método para editar un usuario (puedes agregar un formulario o lógica aquí)
-  editUser(userId: number) {
-    console.log('Editar usuario con id:', userId);
-    // Aquí podrías redirigir a una página de edición o abrir un modal
-  }
 }

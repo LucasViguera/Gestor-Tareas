@@ -7,8 +7,7 @@ import { NavbarComponent } from "./components/navbar/navbar.component";  // impo
   standalone: true,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  imports: [RouterOutlet, NavbarComponent] // Asegúrate de importar RouterModule
-  // Asegúrate de importar RouterModule
+  imports: [RouterOutlet, NavbarComponent] 
 })
 export class AppComponent {
   title = 'my-angular-app';

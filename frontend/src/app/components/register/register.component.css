@@ -1,11 +1,11 @@
 /* Estilo para el formulario */
 form {
   background-color: #ffffff;
-  padding: 20px; /* Reducido el padding para que ocupe menos espacio */
+  padding: 20px; 
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 360px; /* Reducido el tamaño máximo */
-  margin: 20px auto; /* Margen reducido */
+  max-width: 360px; 
+  margin: 20px auto; 
   font-family: Arial, sans-serif;
   overflow: hidden; /* Elimina la barra de desplazamiento */
 }
@@ -13,25 +13,25 @@ form {
 /* Título */
 h2 {
   text-align: center;
-  margin-bottom: 20px; /* Reducido el margen inferior */
-  font-size: 1.6rem; /* Reducido el tamaño de la fuente */
+  margin-bottom: 20px;
+  font-size: 1.6rem; 
   color: #2d3a3a;
 }
 
 /* Estilo para las etiquetas */
 label {
-  font-size: 0.95rem; /* Reducido el tamaño de la fuente */
+  font-size: 0.95rem; 
   font-weight: bold;
   color: #2d3a3a;
-  margin-bottom: 6px; /* Reducido el margen */
+  margin-bottom: 6px; 
   display: block;
 }
 
 /* Estilo para los campos de entrada */
 input {
   width: 100%;
-  padding: 10px; /* Reducido el padding dentro de los campos */
-  margin-bottom: 12px; /* Reducido el margen inferior */
+  padding: 10px; 
+  margin-bottom: 12px; 
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 1rem;
@@ -48,18 +48,18 @@ input:focus {
 /* Estilo para los mensajes de error */
 .error {
   color: #e74c3c;
-  font-size: 0.85rem; /* Reducido el tamaño de la fuente */
+  font-size: 0.85rem;
   margin-top: 5px;
 }
 
 /* Estilo para el botón de registro */
 button {
   width: 100%;
-  padding: 10px; /* Reducido el padding del botón */
+  padding: 10px; 
   border: none;
   background-color: #4CAF50;
   color: white;
-  font-size: 1rem; /* Reducido el tamaño de la fuente */
+  font-size: 1rem; 
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -78,9 +78,9 @@ button:hover {
 .switch a {
   display: block;
   text-align: center;
-  margin-top: 12px; /* Reducido el margen superior */
+  margin-top: 12px; 
   color: #3498db;
-  font-size: 0.95rem; /* Reducido el tamaño de la fuente */
+  font-size: 0.95rem; 
   text-decoration: none;
 }
 

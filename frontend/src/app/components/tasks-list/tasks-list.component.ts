@@ -73,11 +73,6 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  // Método para editar una tarea
-  editTask(task: Task): void {
-    console.log('Editar tarea:', task);
-  }
-
   // Cambiar estado de completado (unificado con markComplete)
   markComplete(task: Task): void {
     // Cambia el estado de completado de la tarea

@@ -165,4 +165,10 @@
     font-size: 0.8rem;
     padding: 6px 12px;
   }
+
+  .actions {
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 8px; 
+  }
 }

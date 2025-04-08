@@ -1,6 +1,4 @@
-// src/controllers/taskController.js
-import prisma from '../../prisma/prismaClient.js'; // Asegúrate de tener la exportación predeterminada de prisma configurada
-
+import prisma from '../../prisma/prismaClient.js'; 
 // Obtener todas las tareas
 export const getTasks = async (_req, res) => {
   try {

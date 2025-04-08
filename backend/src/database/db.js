@@ -1,4 +1,3 @@
-// src/config/db.js
 import mysql from 'mysql2';
 import dotenv from 'dotenv';
 import { URL } from 'url';

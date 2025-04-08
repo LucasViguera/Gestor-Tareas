@@ -12,10 +12,7 @@
 /Desktop/
 
 
-# Asegúrate de que también no se sigan los archivos no deseados
-node_modules/
-*.log
-
+frontend/.angular/
 
 
 # Ignorar archivos de caché

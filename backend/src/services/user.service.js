@@ -3,12 +3,9 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { handleError } from '../utils/errorhandler.js';
 
-
-
-// Crear un nuevo usuario
 async function createUser(req, res) {
-  const { email, password, username } = req.body;
-
+  const { email, password, username, role } = req.body;
+ 
   try {
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) return res.status(400).json({ error: 'El usuario ya existe' });
@@ -16,7 +13,10 @@ async function createUser(req, res) {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await prisma.user.create({
-      data: { email, password: hashedPassword, username },
+      data: { email,
+              password: hashedPassword, 
+              username , 
+              role: role || 'USER' },
     });
 
     res.status(201).json({ message: 'Usuario creado correctamente', user: newUser });
@@ -25,7 +25,6 @@ async function createUser(req, res) {
   }
 }
 
-// Iniciar sesión
 async function loginUser(req, res) {
   const { email, password } = req.body;
 
@@ -36,7 +35,10 @@ async function loginUser(req, res) {
     }
 
     const token = jwt.sign(
-      { id: user.id, email: user.email },
+      { id: user.id, 
+        email: user.email, 
+        role: user.role },
+
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
@@ -47,7 +49,6 @@ async function loginUser(req, res) {
   }
 }
 
-// Obtener todos los usuarios
 async function getAllUsers(req, res) {
   try {
     const users = await prisma.user.findMany();
@@ -57,7 +58,6 @@ async function getAllUsers(req, res) {
   }
 }
 
-// Obtener datos del usuario autenticado
 async function getUserData(req, res) {
   try {
     const user = await prisma.user.findUnique({ where: { id: req.user.userId } });

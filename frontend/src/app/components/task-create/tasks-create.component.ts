@@ -23,7 +23,7 @@ export class TaskCreateComponent implements OnInit {
   startDate: string = '';
   endDate: string = '';
   priority: string = 'media';
-  assigneeId: number | null = null; // Ahora es solo el ID
+  assigneeId: number | null = null;
   errorMessage: string | null = null;
   completed: number;
 
@@ -105,7 +105,7 @@ export class TaskCreateComponent implements OnInit {
         taskForm.resetForm();
         this.errorMessage = null;
   
-        // SweetAlert2 para mostrar una notificación
+
         Swal.fire({
           title: 'Éxito',
           text: '¡La tarea ha sido registrada correctamente!',
@@ -123,14 +123,14 @@ export class TaskCreateComponent implements OnInit {
   formatDate(date: string | null | undefined): string {
     if (!date) {
       console.warn('Fecha vacía o no definida.');
-      return ''; // Mejor devolver una cadena vacía si es necesario
+      return ''; 
     }
     
     const parsedDate = new Date(date);
     
     if (isNaN(parsedDate.getTime())) {
       console.error(`Fecha inválida: ${date}`);
-      return ''; // Devolver vacío en vez de `null` para evitar errores en JSON
+      return ''; 
     }
   
     return parsedDate.toISOString().slice(0, 19).replace('T', ' ') // "YYYY-MM-DD HH:mm:ss"

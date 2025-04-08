@@ -2,7 +2,6 @@
   <h2 class="text-center mb-4"> Crear Nueva Tarea</h2>
 
   <form (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm" class="task-form">
-    <!-- Campo Nombre de la tarea -->
     <div class="form-group">
       <label for="title"> Nombre de la tarea</label>
       <input 
@@ -20,7 +19,6 @@
       </div>
     </div>
 
-    <!-- Campo Descripción -->
     <div class="form-group">
       <label for="description"> Descripción de la tarea</label>
       <textarea 
@@ -38,7 +36,6 @@
       </div>
     </div>
 
-    <!-- Campo Fecha de inicio -->
     <div class="form-group">
       <label for="startDate"> Fecha de inicio</label>
       <input 
@@ -51,7 +48,6 @@
       />
     </div>
 
-    <!-- Campo Fecha de fin -->
     <div class="form-group">
       <label for="endDate">Fecha de fin</label>
       <input 
@@ -64,7 +60,7 @@
       />
     </div>
 
-    <!-- Campo Prioridad -->
+
     <div class="form-group">
       <label for="priority">Prioridad</label>
       <select 
@@ -80,7 +76,6 @@
       </select>
     </div>
 
-  <!-- Campo Asignado a -->
   <label for="assignee">Asignado a</label>
   <select 
   id="assignee" 
@@ -95,18 +90,14 @@
   Este campo es obligatorio.
 </div>
 
-
-    <!-- Mostrar un mensaje de carga si los usuarios están siendo obtenidos -->
     <div *ngIf="users.length === 0 && !errorMessage">
       <p>Cargando usuarios...</p>
     </div>
 
-    <!-- Mensaje de error -->
     <div *ngIf="errorMessage" class="alert alert-danger text-center">
       {{ errorMessage }}
     </div>
 
-    <!-- Botón de enviar -->
     <button type="submit" class="btn btn-primary w-100 mt-3">
       Crear tarea
     </button>

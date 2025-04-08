@@ -5,9 +5,9 @@ export interface User {
     email: string;
     password: string;
     username: string;
-    role: 'USER' | 'ADMIN';  // O puede ser un string si tienes más roles definidos
-    createdAt: string;  // Fecha en formato ISO
-    updatedAt: string;  // Fecha en formato ISO
+    role: 'USER'; 
+    createdAt: string;
+    updatedAt: string; 
     tasks?: Task[]; 
   }
 

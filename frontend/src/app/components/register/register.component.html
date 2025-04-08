@@ -1,7 +1,5 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <h2>Registrarse</h2>
-
-  <!-- Campo para el nombre de usuario -->
   <div>
       <label for="username">Usuario:</label>
       <input id="username" type="text" formControlName="username" required>
@@ -9,8 +7,6 @@
           El usuario es requerido.
       </div>
   </div>
-
-  <!-- Campo para el correo electrónico -->
   <div>
       <label for="email">Email:</label>
       <input id="email" type="email" formControlName="email" required>
@@ -18,8 +14,6 @@
           El email es requerido y debe ser válido.
       </div>
   </div>
-
-  <!-- Campo para la contraseña -->
   <div>
       <label for="password">Contraseña:</label>
       <input id="password" type="password" formControlName="password" required>
@@ -27,13 +21,9 @@
           La contraseña es requerida.
       </div>
   </div>
-
-  <!-- Botón de envío -->
   <div>
       <button type="submit" [disabled]="registerForm.invalid">Registrarse</button>
   </div>
-
-  <!-- Enlace para cambiar a la página de login -->
   <div class="switch">
       <a routerLink="/login">¿Ya tenes cuenta? Inicia sesión aquí</a>
   </div>

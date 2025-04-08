@@ -29,7 +29,7 @@ registerLocaleData(localeEs, 'es');
   ]
 })
 export class CalendarComponent implements OnInit {
-  view: CalendarView = CalendarView.Month;  // Configuración para la vista mensual
+  view: CalendarView = CalendarView.Month; 
   viewDate: Date = new Date();
   events: CalendarEvent[] = [];
   tasks: Task[] = [];
@@ -76,8 +76,6 @@ export class CalendarComponent implements OnInit {
     };
     return colors[priority] || { primary: '#7FDBFF', secondary: '#80E0FF' }; //si no tiene asignada ninguna es azul
    }
-
-  // Aquí está la función navigateMonth que falta
   navigateMonth(direction: number): void {
     const newDate = new Date(this.viewDate);
     newDate.setMonth(this.viewDate.getMonth() + direction);  // Avanzar o retroceder un mes

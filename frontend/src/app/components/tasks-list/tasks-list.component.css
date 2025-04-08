@@ -94,7 +94,7 @@
   background-color: #f0f0f0;
 }
 
-/* Responsive: convertir tabla en tarjetas para móviles */
+/* Responsive: convertir tabla en tarjetas para celulares */
 @media (max-width: 768px) {
   /* Mostrar la tabla en formato de bloques */
   .task-table, 

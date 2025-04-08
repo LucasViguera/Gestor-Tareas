@@ -3,7 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
-import Swal from 'sweetalert2';  // Importamos SweetAlert2
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',

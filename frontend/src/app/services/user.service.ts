@@ -7,27 +7,24 @@ import { environment } from '../environments/environment';
   providedIn: 'root',
 })
 export class UserService {
-  // URL base de la API (ajústala a la correcta)
   private apiUrl = environment.usersUrl;  
 
   constructor(private http: HttpClient) { }
-
-  // Método para obtener todos los usuarios con sus tareas
+  
   getUsers(): Observable<any[]> {
-    const headers = this.getAuthHeaders();  // Obtener cabeceras de autenticación
+    const headers = this.getAuthHeaders(); 
     return this.http.get<any[]>(this.apiUrl, { headers });
   }
 
   // Método para eliminar un usuario
   deleteUser(userId: number): Observable<any> {
-    const headers = this.getAuthHeaders();  // Reutilizando getAuthHeaders()
-    // Cambié la URL para que coincida con el endpoint del backend
+    const headers = this.getAuthHeaders(); 
     return this.http.delete(`${this.apiUrl}/delete/${userId}`, { headers });
   }
 
   // Método para editar un usuario
   updateUser(userId: number, updatedData: any): Observable<any> {
-    const headers = this.getAuthHeaders();  // Obtener cabeceras de autenticación
+    const headers = this.getAuthHeaders();
     const updateUrl = `${this.apiUrl}/${userId}`;
     return this.http.put<any>(updateUrl, updatedData, { headers });
   }

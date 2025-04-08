@@ -13,7 +13,7 @@ import { environment } from '../../environments/environment';
   imports: [CommonModule]
 })
 export class TasksStatsComponent implements OnInit {
-  usersStats: UserTaskStats[] = [];  // Usamos la interfaz extendida que incluye estadísticas
+  usersStats: UserTaskStats[] = []; 
   errorMessage: string | null = null; 
   totalTasks: number = 0;
   completedTasks: number = 0;
@@ -24,16 +24,13 @@ export class TasksStatsComponent implements OnInit {
     this.loadUserStats();
   }
 
-  // Cargar las estadísticas de tareas por usuario
   loadUserStats(): void {
-    const token = localStorage.getItem('token');  // Asegúrate de que el token esté almacenado
+    const token = localStorage.getItem('token');
     if (!token) {
       this.errorMessage = 'No se encontró el token de autenticación.';
       return;
     }
-
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
     this.http.get<User[]>(this.apiUrl, { headers }).subscribe({
       next: (data: User[]) => {
         this.usersStats = data.map(user => {
@@ -67,7 +64,6 @@ export class TasksStatsComponent implements OnInit {
     });
   }
 
-  // Método para calcular el porcentaje de tareas completadas
   getCompletedPercentage(): number {
     return (this.completedTasks / this.totalTasks) * 100;
   }

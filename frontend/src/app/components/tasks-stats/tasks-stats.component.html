@@ -1,5 +1,4 @@
 <div *ngIf="usersStats.length">
-  <!-- Barra de progreso general -->
   <div class="progress-bar-container">
     <div class="progress-bar">
       <div class="completed" [style.width.%]="getCompletedPercentage()"></div>
@@ -7,10 +6,8 @@
     <p>{{ completedTasks }} Completadas - {{ totalTasks - completedTasks }} Pendientes</p>
   </div>
 
-  <!-- Tarjetas con estadísticas por usuario -->
   <div class="card-container">
     <div *ngFor="let user of usersStats" class="card">
-      <!-- Icono de tareas completadas -->
       <div class="card-icon">
         <i class="fas fa-check-circle"></i>
       </div>
@@ -23,8 +20,6 @@
     </div>
   </div>
 </div>
-
-<!-- Mensaje de error -->
 <div *ngIf="errorMessage" class="error-message">
   {{ errorMessage }}
 </div>

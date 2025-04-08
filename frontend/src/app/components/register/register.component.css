@@ -7,7 +7,7 @@ form {
   max-width: 360px; 
   margin: 20px auto; 
   font-family: Arial, sans-serif;
-  overflow: hidden; /* Elimina la barra de desplazamiento */
+  overflow: hidden;
 }
 
 /* Título */

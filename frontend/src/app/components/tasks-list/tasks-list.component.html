@@ -24,7 +24,6 @@
           <button class="btn delete-btn" (click)="deleteTask(task.id)">
             Eliminar
           </button>
-          <!-- Checkbox para marcar como completada -->
           <input type="checkbox" [checked]="task.completed === 1" (change)="markComplete(task)" />
         </td>
       </tr>

@@ -4,24 +4,25 @@
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  font-family: 'Arial', sans-serif; /* Fuentes más modernas */
-  max-width: 1200px; /* Limitar el ancho máximo */
-  margin: 0 auto; /* Centrar el contenedor */
+  font-family: 'Arial', sans-serif; 
+  max-width: 1200px; 
+  margin: 0 auto;
 }
 
 /* Contenedor para el calendario y las tareas */
 .calendar-and-tasks {
   display: flex;
-  gap: 20px; /* Espacio entre el calendario y la lista de tareas */
-  justify-content: space-between; /* Alinea los elementos hacia los bordes */
+  gap: 20px;
+  justify-content: space-between;
   align-items: flex-start;
-  flex-wrap: wrap; /* Permite que los elementos se ajusten a pantallas más pequeñas */
+  flex-wrap: wrap;
 }
 
 /* Contenedor del calendario */
 .calendar {
   flex: 1;
-  max-width: 60%; /* El calendario ocupa el 60% del contenedor */
+  /*max-width: 60%; El calendario ocupa el 60% del contenedor */
+  max-width: auto;
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -65,7 +66,8 @@ button:hover {
 /* Contenedor de tareas */
 .tasks {
   flex: 1;
-  max-width: 35%; /* Las tareas ocupan el 35% del contenedor */
+  /*  max-width: 35%; Las tareas ocupan el 35% del contenedor */
+  max-width: auto;
   padding: 15px;
   background-color: #fff;
   border-radius: 10px;

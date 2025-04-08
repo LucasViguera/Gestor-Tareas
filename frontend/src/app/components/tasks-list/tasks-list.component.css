@@ -165,17 +165,21 @@
     font-size: 0.8rem;
     padding: 6px 12px;
   }
-
+  
   .actions {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px; /* Agrega espacio vertical entre botón y checkbox */
-    margin-top: 10px;
+    gap: 20px; 
+    margin-top: 15px;
   }
 
   .actions .action-button,
   .actions .action-checkbox {
-    margin-bottom: 5px;
+    margin-bottom: 15px; 
+  }
+
+  .checkbox {
+    transform: scale(1.2);
   }
 }

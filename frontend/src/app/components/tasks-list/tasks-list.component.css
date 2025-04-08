@@ -55,7 +55,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .btn {
@@ -99,6 +99,7 @@
   height: 20px;
   border: 2px solid #0c0c0c;
   border-radius: 4px;
+  position: relative;
 }
 
 /* Responsive: convertir tabla en tarjetas para celulares */

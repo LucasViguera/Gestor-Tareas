@@ -1,18 +1,8 @@
 import prisma from "../../prisma/prismaClient.js";
 
 // Obtener usuarios con sus tareas
-export const getUsers = async (req, res) => {
+export const getUsers = async (_req, res) => {
   try {
-    // Verificar el token de autorización
-    const token = req.headers['authorization']?.split(' ')[1];
-    if (!token) {
-      return res.status(401).json({ error: 'Token de autenticación no proporcionado' });
-    }
-
-    // Verificar la validez del token
-    const decoded = verifyToken(token);
-
-
     const users = await prisma.user.findMany({
       select: {
         id: true,

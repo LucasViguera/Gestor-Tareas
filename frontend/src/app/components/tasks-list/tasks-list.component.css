@@ -167,8 +167,15 @@
   }
 
   .actions {
-    flex-direction: column; 
-    align-items: flex-start; 
-    gap: 12px; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px; /* Agrega espacio vertical entre botón y checkbox */
+    margin-top: 10px;
+  }
+
+  .actions .action-button,
+  .actions .action-checkbox {
+    margin-bottom: 5px;
   }
 }

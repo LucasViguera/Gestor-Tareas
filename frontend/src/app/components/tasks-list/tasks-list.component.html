@@ -21,15 +21,13 @@
         <td class="tarea">{{ task.priority }}</td>
         <td class="tarea">{{ getUsername(task.assigneeId) }}</td>
         <td class="actions">
-          <div>
-            <button class="btn delete-btn" (click)="deleteTask(task.id)">
-              Eliminar
-            </button>
+          <div class="action-button">
+            <button class="btn delete-btn" (click)="deleteTask(task.id)">Eliminar</button>
           </div>
-          <div>
+          <div class="action-checkbox">
             <input class="checkbox" type="checkbox" [checked]="task.completed === 1" (change)="markComplete(task)" />
           </div>
-        </td>        
+        </td>    
       </tr>
     </tbody>
   </table>

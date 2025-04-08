@@ -1,5 +1,5 @@
 import prisma from '../../prisma/prismaClient.js';
-import { handleError } from '../utils/handleError.js'; // Ajustá el path si es distinto
+import { handleError } from '../utils/errorhandler.js';
 
 // Obtener todas las tareas
 export const getTasks = async (_req, res) => {

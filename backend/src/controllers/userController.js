@@ -1,5 +1,5 @@
 import prisma from "../../prisma/prismaClient.js";
-import { handleError } from "../utils/handleError.js";
+import { handleError } from '../utils/errorhandler.js';
 
 // Obtener usuarios con sus tareas
 export const getUsers = async (_req, res) => {

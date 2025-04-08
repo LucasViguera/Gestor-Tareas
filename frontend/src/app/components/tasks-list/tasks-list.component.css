@@ -169,6 +169,6 @@
   .actions {
     flex-direction: column; 
     align-items: flex-start; 
-    gap: 8px; 
+    gap: 12px; 
   }
 }

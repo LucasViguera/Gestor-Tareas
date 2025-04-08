@@ -37,6 +37,7 @@
   font-size: 1rem;
   border-bottom: 1px solid #ddd;
   white-space: normal;
+  vertical-align: middle;
 }
 
 .task-table th {
@@ -53,10 +54,12 @@
 /* Acciones y botones */
 .actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: space-between;
+  align-items: center;        
+  justify-content: center;  
+  gap: 10px;                
+  height: 100%;
 }
+
 
 .btn {
   padding: 8px 16px;
@@ -99,7 +102,6 @@
   height: 20px;
   border: 2px solid #0c0c0c;
   border-radius: 4px;
-  position: relative;
 }
 
 /* Responsive: convertir tabla en tarjetas para celulares */

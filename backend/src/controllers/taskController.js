@@ -1,4 +1,5 @@
 import prisma from '../../prisma/prismaClient.js'; 
+
 // Obtener todas las tareas
 export const getTasks = async (_req, res) => {
   try {

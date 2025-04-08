@@ -1,16 +1,4 @@
-// src/controllers/userController.js
-
-import prisma from "../../prisma/prismaClient.js"; // Asegúrate de tener la exportación predeterminada de prisma configurada
-import jwt from 'jsonwebtoken';
-
-// Middleware de verificación de token (puedes mover esto a un archivo separado)
-const verifyToken = (token) => {
-  try {
-    return jwt.verify(token, process.env.JWT_SECRET); // Verifica el token
-  } catch (error) {
-    throw new Error('Token inválido o expirado');
-  }
-};
+import prisma from "../../prisma/prismaClient.js";
 
 // Obtener usuarios con sus tareas
 export const getUsers = async (req, res) => {
@@ -24,14 +12,14 @@ export const getUsers = async (req, res) => {
     // Verificar la validez del token
     const decoded = verifyToken(token);
 
-    // Obtener usuarios con sus tareas desde la base de datos
+
     const users = await prisma.user.findMany({
       select: {
         id: true,
         email: true,
         username: true,
-        role: true, // Si deseas incluir el campo 'role'
-        tasks: true, // Incluir tareas asociadas al usuario
+        role: true,
+        tasks: true, 
       },
     });
 

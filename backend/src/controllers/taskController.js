@@ -34,17 +34,14 @@ export const getTaskById = async (req, res) => {
 export const createTask = async (req, res) => {
   const { title, description, startDate, endDate, priority, assigneeId, completed } = req.body;
 
-  // Verificar que todos los campos sean proporcionados
   if (!title || !description || !startDate || !endDate || !priority || assigneeId === null) {
     return res.status(400).json({ message: 'Todos los campos son obligatorios' });
   }
 
-  // Validar que assigneeId sea un número válido
   if (isNaN(assigneeId) || assigneeId <= 0) {
     return res.status(400).json({ message: 'El ID del usuario asignado es inválido' });
   }
 
-  // Validar las fechas (startDate y endDate)
   const parsedStartDate = new Date(startDate);
   const parsedEndDate = new Date(endDate);
 
@@ -56,16 +53,13 @@ export const createTask = async (req, res) => {
     return res.status(400).json({ message: 'Fecha de finalización no válida' });
   }
 
-  // Verificar que la fecha de inicio no sea posterior a la fecha de finalización
   if (parsedStartDate > parsedEndDate) {
     return res.status(400).json({ message: 'La fecha de inicio no puede ser posterior a la fecha de finalización' });
   }
 
-  // Validar el campo 'completed' como un valor booleano representado como 0 o 1 en MySQL
-  const taskCompleted = (completed === 1 || completed === "1") ? 1 : 0;
+  const taskCompleted = (completed === 1 || completed === "1") ? 1 : 0; // valido que sea 1 o 0 para mysql
 
   try {
-    // Crear la tarea en la base de datos utilizando Prisma
     const newTask = await prisma.task.create({
       data: {
         title,
@@ -135,7 +129,6 @@ export const deleteTask = async (req, res) => {
       return res.status(404).json({ message: 'Tarea no encontrada' });
     }
 
-    // Eliminar la tarea
     await prisma.task.delete({
       where: { id: parseInt(id) },
     });

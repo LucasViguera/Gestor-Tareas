@@ -1,4 +1,5 @@
 import prisma from "../../prisma/prismaClient.js";
+import { handleError } from "../utils/handleError.js";
 
 // Obtener usuarios con sus tareas
 export const getUsers = async (_req, res) => {
@@ -15,8 +16,8 @@ export const getUsers = async (_req, res) => {
 
     res.status(200).json(users);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message || 'Error al obtener los usuarios' });
+    console.error('Error al obtener los usuarios:', error);
+    handleError(res, 'Error al obtener los usuarios');
   }
 };
 
@@ -27,7 +28,7 @@ export const deleteUser = async (req, res) => {
 
     // Solo permitir a los administradores eliminar usuarios
     if (req.user.role !== 'ADMIN') {
-      return res.status(403).json({ error: 'Acción no permitida. Se requiere privilegios de administrador.' });
+      return handleError(res, 'Acción no permitida. Se requiere privilegios de administrador.', 403);
     }
 
     // Verificar si el usuario existe
@@ -36,7 +37,7 @@ export const deleteUser = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({ message: 'Usuario no encontrado' });
+      return handleError(res, 'Usuario no encontrado', 404);
     }
 
     // Eliminar el usuario
@@ -47,6 +48,6 @@ export const deleteUser = async (req, res) => {
     res.status(200).json({ message: 'Usuario eliminado con éxito' });
   } catch (error) {
     console.error('Error al eliminar el usuario:', error);
-    res.status(500).json({ error: error.message || 'Error al eliminar el usuario' });
+    handleError(res, 'Error al eliminar el usuario');
   }
 };

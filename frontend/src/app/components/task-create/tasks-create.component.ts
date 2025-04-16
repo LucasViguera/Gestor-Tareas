@@ -3,7 +3,6 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/task.model';
 import { UserService } from '../../services/user.service';
-import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 
 
@@ -33,7 +32,7 @@ export class TaskCreateComponent implements OnInit {
   constructor(
     private taskService: TaskService,
     private userService: UserService,
-    private authService: AuthService
+
   ) { 
     this.completed = 0;
   }

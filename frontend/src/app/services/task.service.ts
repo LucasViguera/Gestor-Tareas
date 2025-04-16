@@ -15,10 +15,7 @@ export class TaskService {
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(`${this.apiUrl}`);
   }
-  getTaskById(taskId: string): Observable<Task> {
-    return this.http.get<Task>(`${this.apiUrl}/${taskId}`);
-  }
-
+ 
   saveTask(newTask: Omit<Task, 'id'>): Observable<Task> {  
     return this.http.post<Task>(`${this.apiUrl}/create`, newTask, {
       headers: { 'Content-Type': 'application/json' }

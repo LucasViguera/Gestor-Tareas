@@ -39,16 +39,6 @@ export class AuthService {
   }
 
 
-  getUserId(): number | null {
-    const token = this.getToken();
-    if (token) {
-      const decodedToken: any = jwtDecode(token); 
-      return decodedToken?.userId || null; 
-    }
-    return null;
-  }
-
-
   getUserRole(): string | null {
     const token = localStorage.getItem('token');
     if (token) {

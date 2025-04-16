@@ -31,7 +31,7 @@ export class AuthService {
   }
   
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('token'); 
+    return !!this.getToken();
   }
 
   getToken(): string | null {

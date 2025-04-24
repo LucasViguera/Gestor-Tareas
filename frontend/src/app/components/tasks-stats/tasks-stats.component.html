@@ -1,7 +1,9 @@
 <div *ngIf="usersStats.length">
   <div class="progress-bar-container">
     <div class="progress-bar">
-      <div class="completed" [style.width.%]="getCompletedPercentage()"></div>
+      <div class="completed" [style.width.%]="getCompletedPercentage()">
+        <span class="percentage-text">{{ getCompletedPercentage() | number:'1.0-0' }}%</span>
+      </div>
     </div>
     <p>{{ completedTasks }} Completadas - {{ totalTasks - completedTasks }} Pendientes</p>
   </div>

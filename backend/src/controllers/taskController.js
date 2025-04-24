@@ -61,39 +61,6 @@ export const createTask = async (req, res) => {
   }
 };
 
-// Actualizar una tarea
-export const updateTask = async (req, res) => {
-  const { id } = req.params;
-  const { title, description, startDate, endDate, priority, assigneeId, completed } = req.body;
-
-  try {
-    const task = await prisma.task.findUnique({
-      where: { id: parseInt(id) },
-    });
-
-    if (!task) {
-      return handleError(res, 'Tarea no encontrada', 404);
-    }
-
-    const updatedTask = await prisma.task.update({
-      where: { id: parseInt(id) },
-      data: {
-        title,
-        description,
-        startDate: new Date(startDate),
-        endDate: new Date(endDate),
-        priority,
-        assigneeId,
-        completed: (completed === 1 || completed === "1") ? 1 : 0
-      },
-    });
-
-    res.status(200).json({ message: 'Tarea actualizada con éxito', task: updatedTask });
-  } catch (error) {
-    console.error('Error al actualizar la tarea:', error);
-    handleError(res, 'Error al actualizar la tarea');
-  }
-};
 
 // Eliminar una tarea
 export const deleteTask = async (req, res) => {

@@ -12,25 +12,6 @@ export const getTasks = async (_req, res) => {
   }
 };
 
-// Obtener tarea por ID
-export const getTaskById = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const task = await prisma.task.findUnique({
-      where: { id: parseInt(id, 10) },
-    });
-
-    if (!task) {
-      return handleError(res, 'Tarea no encontrada', 404);
-    }
-
-    res.status(200).json(task);
-  } catch (error) {
-    console.error('Error al obtener tarea:', error);
-    handleError(res, 'Error al obtener la tarea');
-  }
-};
-
 // Crear una nueva tarea
 export const createTask = async (req, res) => {
   const { title, description, startDate, endDate, priority, assigneeId, completed } = req.body;

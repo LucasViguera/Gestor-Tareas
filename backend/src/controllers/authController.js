@@ -7,7 +7,6 @@ export const loginUser = userService.loginUser;
 export const getUserData = userService.getUserData;
 export const getUsers = userService.getAllUsers;
 
-// Middleware para verificar rol de administrador
 export async function checkAdmin(req, res, next) {
   try {
     const user = await prisma.user.findUnique({ where: { id: req.user.userId } });

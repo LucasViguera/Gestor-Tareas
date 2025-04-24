@@ -8,6 +8,8 @@ router.get('/', taskController.getTasks);
 
 router.post('/create', taskController.createTask);  
 
+router.put('/update/:id', taskController.updateTask); 
+
 router.delete('/delete/:id', taskController.deleteTask);
 
 

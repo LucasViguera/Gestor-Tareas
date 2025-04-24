@@ -13,7 +13,11 @@
   border-radius: 5px;
   position: relative;
 }
-
+.percentage-text {
+  position: absolute;
+  font-style: oblique;
+  color: brown;
+}
 .completed {
   height: 100%;
   background-color: #76c7c0;

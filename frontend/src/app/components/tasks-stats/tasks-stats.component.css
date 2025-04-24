@@ -15,9 +15,12 @@
 }
 .percentage-text {
   position: absolute;
-  font-style: oblique;
-  color: brown;
+  color: rgb(2, 2, 2);
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
 }
+
 .completed {
   height: 100%;
   background-color: #76c7c0;

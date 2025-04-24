@@ -24,18 +24,15 @@ export class TaskCreateComponent implements OnInit {
   priority: string = 'media';
   assigneeId: number | null = null;
   errorMessage: string | null = null;
-  completed: number;
+  completed: number = 0;
 
   users: any[] = [];
-  selectedUser: any = null;
 
   constructor(
     private taskService: TaskService,
-    private userService: UserService,
+    private userService: UserService
 
-  ) { 
-    this.completed = 0;
-  }
+  ) {}
 
   ngOnInit(): void {
     this.userService.getUsers().subscribe({

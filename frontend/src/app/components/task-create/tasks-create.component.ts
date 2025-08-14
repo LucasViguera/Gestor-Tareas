@@ -85,15 +85,16 @@ export class TaskCreateComponent implements OnInit {
       return;
     }
   
-    const newTask: Omit<Task, 'id' | 'assignee'> & { assigneeId: number | null } = {
+    const newTask: Omit<Task, 'id' | 'assignee'> & { assigneeIds: number[] } = {
       title: this.title.trim(),
       description: this.description.trim(),
       startDate: this.startDate,
       endDate: this.endDate,
       priority: this.priority,
-      assigneeId: this.assigneeId ?? null,
+      assigneeIds: [ Number(this.assigneeId) ], 
       completed: 0,
     };
+
     
   
     this.taskService.saveTask(newTask).subscribe({

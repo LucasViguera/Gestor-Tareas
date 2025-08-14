@@ -25,6 +25,7 @@ async function createUser(req, res) {
   }
 }
 
+
 async function loginUser(req, res) {
   const { email, password } = req.body;
 
@@ -34,11 +35,9 @@ async function loginUser(req, res) {
       return res.status(400).json({ error: 'Credenciales inválidas' });
     }
 
+    // 🔑 Firmamos con id + role + email
     const token = jwt.sign(
-      { id: user.id, 
-        email: user.email, 
-        role: user.role },
-
+      { id: user.id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );

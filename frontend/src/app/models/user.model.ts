@@ -5,7 +5,7 @@ export interface User {
     email: string;
     password: string;
     username: string;
-    role: 'USER'; 
+    role: 'USER' | 'ADMIN'; 
     createdAt: string;
     updatedAt: string; 
     tasks?: Task[]; 

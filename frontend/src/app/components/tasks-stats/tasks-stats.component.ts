@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+// src/app/components/tasks-stats/tasks-stats.component.ts
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
+
 import { User, UserTaskStats } from '../../models/user.model';
 import { Task } from '../../models/task.model';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-tasks-stats',
@@ -12,59 +16,68 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./tasks-stats.component.css'],
   imports: [CommonModule]
 })
-export class TasksStatsComponent implements OnInit {
-  usersStats: UserTaskStats[] = []; 
-  errorMessage: string | null = null; 
-  totalTasks: number = 0;
-  completedTasks: number = 0;
-  private apiUrl = environment.usersUrl; 
-  constructor(private http: HttpClient) {}
+export class TasksStatsComponent implements OnInit, OnDestroy {
+  usersStats: UserTaskStats[] = [];
+  errorMessage: string | null = null;
+  totalTasks = 0;
+  completedTasks = 0;
+
+  private apiUrl = environment.usersUrl;
+  private sub?: Subscription;
+
+  constructor(private http: HttpClient, private taskService: TaskService) {}
 
   ngOnInit(): void {
     this.loadUserStats();
+
+    // 🔔 refrescar automáticamente cuando cambian tareas
+    this.sub = this.taskService.taskChanged$.subscribe(() => this.loadUserStats());
+  }
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
   }
 
   loadUserStats(): void {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      this.errorMessage = 'No se encontró el token de autenticación.';
-      return;
-    }
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    this.http.get<User[]>(this.apiUrl, { headers }).subscribe({
-      next: (data: User[]) => {
-        this.usersStats = data.map(user => {
-          const tasksArray: Task[] = user.tasks ?? [];
-          const totalTasks = tasksArray.length;
-          const completedTasks = tasksArray.filter(task => task.completed).length;
-          const pendingTasks = totalTasks - completedTasks;
+    // reiniciar totales antes de acumular
+    this.totalTasks = 0;
+    this.completedTasks = 0;
 
-          // Sumar el total y completadas para la barra de progreso
-          this.totalTasks += totalTasks;
-          this.completedTasks += completedTasks;
+    // Nota: el Authorization ya lo agrega tu interceptor
+    this.http.get<User[]>(this.apiUrl).subscribe({
+      next: (data: User[]) => {
+        this.usersStats = (data || []).map(user => {
+          const tasksArray: Task[] = user.tasks ?? [];
+
+          const total = tasksArray.length;
+          // 👇 completed es 0/1, contemos sólo cuando === 1
+          const completed = tasksArray.filter(t => t.completed === 1).length;
+          const pending = total - completed;
+
+          this.totalTasks += total;
+          this.completedTasks += completed;
 
           return {
             ...user,
             tasks: tasksArray,
-            totalTasks,
-            completedTasks,
-            pendingTasks
+            totalTasks: total,
+            completedTasks: completed,
+            pendingTasks: pending
           } as UserTaskStats;
         });
         this.errorMessage = null;
       },
       error: (err) => {
         console.error('Error al cargar estadísticas:', err);
-        if (err.status === 401) {
-          this.errorMessage = 'Autenticación fallida. Verifique el token.';
-        } else {
-          this.errorMessage = 'Error al cargar las estadísticas de tareas.';
-        }
+        this.errorMessage = err?.status === 401
+          ? 'Autenticación fallida. Verifique el token.'
+          : 'Error al cargar las estadísticas de tareas.';
       }
     });
   }
 
   getCompletedPercentage(): number {
+    if (this.totalTasks === 0) return 0;
     return (this.completedTasks / this.totalTasks) * 100;
   }
 }

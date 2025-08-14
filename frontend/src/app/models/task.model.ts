@@ -5,6 +5,6 @@ export interface Task {
   startDate: string;   
   endDate: string;       
   priority: string;     
-  assigneeId: number | null; 
+  assigneeIds: number[];
   completed: number;    
 }

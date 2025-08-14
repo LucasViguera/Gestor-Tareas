@@ -1,5 +1,6 @@
 <div class="task-list-container">
   <h2>Lista de Tareas</h2>
+
   <table class="task-table">
     <thead>
       <tr>
@@ -8,27 +9,48 @@
         <th>Fecha de Inicio</th>
         <th>Fecha de Fin</th>
         <th>Prioridad</th>
-        <th>Asignado a</th>
+        <th *ngIf="isAdmin">Asignados</th>
         <th>Acciones</th>
       </tr>
     </thead>
+
     <tbody>
-      <tr *ngFor="let task of tasks" [ngClass]="{'completed-task': task.completed}">
+      <tr *ngFor="let task of tasks" [ngClass]="{ 'completed-task': task.completed === 1 }">
         <td class="tarea">{{ task.title }}</td>
         <td class="tarea">{{ task.description }}</td>
         <td class="tarea">{{ task.startDate | date:'dd-MM-yyyy' }}</td>
-        <td class="tarea">{{ task.endDate | date:'dd-MM-yyyy' }}</td>
+        <td class="tarea">{{ task.endDate   | date:'dd-MM-yyyy' }}</td>
         <td class="tarea">{{ task.priority }}</td>
-        <td class="tarea">{{ getUsername(task.assigneeId) }}</td>
+
+        <!-- Muestra asignados: usa assignments si el backend los envía; si no, cae a un posible assigneeId antiguo -->
+        <td class="tarea" *ngIf="isAdmin">
+          {{ displayAssignees(task) }}
+        </td>
+
         <td class="actions">
-          <div class="action-button">
-            <button class="btn delete-btn" (click)="deleteTask(task.id)">Eliminar</button>
-          </div>
-          <div class="action-checkbox">
-            <input class="checkbox" type="checkbox" [checked]="task.completed === 1" (change)="markComplete(task)" />
-          </div>
-        </td>    
+        <!-- Eliminar: solo admin -->
+        <div class="action-button" *ngIf="isAdmin">
+          <button class="btn delete-btn" (click)="deleteTask(task.id)" [disabled]="busyId === task.id">
+            Eliminar
+          </button>
+        </div>
+
+        <!-- Completar/Reabrir: todos (el back valida permisos) -->
+        <div class="action-button">
+          <button
+            class="btn complete-btn"
+            [class.completed]="task.completed === 1"
+            (click)="toggleComplete(task)"
+            [disabled]="busyId === task.id"
+            title="{{ task.completed === 1 ? 'Reabrir tarea' : 'Marcar como completada' }}"
+          >
+            {{ task.completed === 1 ? 'Reabrir' : 'Completar' }}
+          </button>
+        </div>
+      </td>
       </tr>
     </tbody>
   </table>
+
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
 </div>

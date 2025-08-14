@@ -1,22 +1,25 @@
+// src/app/services/task.service.ts
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { Task } from "../models/task.model";
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class TaskService {
-  private apiUrl = environment.tasksUrl; 
+  private apiUrl = environment.tasksUrl;
+
+  // 👇 evento para notificar cambios
+  private taskChangedSubject = new Subject<void>();
+  taskChanged$ = this.taskChangedSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(`${this.apiUrl}`);
   }
- 
-  saveTask(newTask: Omit<Task, 'id'>): Observable<Task> {  
+
+  saveTask(newTask: Omit<Task, 'id'>): Observable<Task> {
     return this.http.post<Task>(`${this.apiUrl}/create`, newTask, {
       headers: { 'Content-Type': 'application/json' }
     });
@@ -26,8 +29,19 @@ export class TaskService {
     return this.http.put<Task>(`${this.apiUrl}/update/${updatedTask.id}`, updatedTask);
   }
 
+  // 👉 actualizar sólo "completed"
+  updateTaskStatus(id: number, completed: number): Observable<any> {
+    return this.http.put(`${this.apiUrl}/update/${id}`, { completed }, {
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
   deleteTask(taskId: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/delete/${taskId}`);
   }
-  
+
+  // 👇 llamar después de crear/editar/borrar
+  notifyTaskChanged() {
+    this.taskChangedSubject.next();
+  }
 }

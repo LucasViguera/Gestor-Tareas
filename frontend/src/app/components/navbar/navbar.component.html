@@ -15,20 +15,26 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/home">Inicio</a>
                 </li>  
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="isAdmin()">
                     <a class="nav-link" href="/task-create">Crear tarea</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="isLoggedIn()">
                     <a class="nav-link" href="/task">Tareas pendientes</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="isLoggedIn()">
                     <a class="nav-link" href="/stats">Estadísticas</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="isLoggedIn()">
                     <a class="nav-link" href="/calendar">Calendario</a>
                 </li>
                 <li class="nav-item" *ngIf="isAdmin()">
-                    <a class="nav-link" href="/admin">Admin</a>
+                    <a class="nav-link" href="/admin">Panel Admin</a>
+                </li>
+                <li class="nav-item" *ngIf="!isLoggedIn()">
+                    <a class="nav-link" href="/login">Iniciar sesión</a>
+                </li>
+                <li class="nav-item" *ngIf="!isLoggedIn()">
+                    <a class="nav-link" href="/register">Registrarse</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link logout-btn" *ngIf="isLoggedIn()" (click)="logout()">Cerrar sesión</a>

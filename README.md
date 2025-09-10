@@ -67,7 +67,7 @@ PORT=3000
 - cd ../frontend
 - ng serve
 
-**Sitio web disponible en: https://gestor-tareas-lucasvigueras-projects.vercel.app/home**
+**Sitio web disponible en: https://gestor-tareas-lucasvigueras-projects.vercel.app**
 
 ## Contacto
 

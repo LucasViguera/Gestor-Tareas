@@ -11,19 +11,19 @@ model task {
   id          Int      @id @default(autoincrement())
   title       String
   description String
+  startDate   DateTime
   endDate     DateTime
   priority    String
-  startDate   DateTime
   completed   Int      @default(0)
   assignments taskAssignment[]
 }
 
 model user {
   id        Int      @id @default(autoincrement())
-  email     String   @unique(map: "User_email_key")
+  email     String   @unique
   password  String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) // MySQL 5 no soporta @updatedAt en algunas versiones
   username  String
   role      String   @default("USER")
   assignments taskAssignment[]

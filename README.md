@@ -1,9 +1,4 @@
-# Gestor-Tareas - Full Stack
-
-[![Node.js](https://img.shields.io/badge/Node.js-18.x-green)](https://nodejs.org/)
-[![npm](https://img.shields.io/badge/npm-9.x-blue)](https://www.npmjs.com/)
-[![MySQL](https://img.shields.io/badge/MySQL-8.x-orange)](https://www.mysql.com/)
-[![Swagger](https://img.shields.io/badge/Swagger-API-yellow)](http://localhost:3000/api-docs)
+# Gestor-Tareas
 
 ---
 
@@ -26,10 +21,6 @@ La plataforma está diseñada para ser segura, escalable y fácil de mantener.
 
 ---
 
-## Documentación de la API
-Se utiliza **Swagger** para documentar todos los endpoints del backend:
-
-
 ## Instalación
 
 ### Requisitos
@@ -37,69 +28,63 @@ Se utiliza **Swagger** para documentar todos los endpoints del backend:
 - MySQL  
 
 ### Clonar el repositorio
-```bash
 git clone https://github.com/LucasViguera/Gestor-Tareas.git
 cd Gestor-Tareas
 
-Configuración
+### Configuración
 
-Instalar dependencias del backend:
+### Instalar dependencias del backend:
 
 cd backend
 npm install
 
 
-Instalar dependencias del frontend:
+### Instalar dependencias del frontend:
 
 cd ../frontend
 npm install
 
-
-Crear un archivo .env en backend:
+### Crear un archivo .env en backend:
 
 DATABASE_URL="mysql://uwzaec7mqimymo3p:M42PFCQTRbR5p86hMYrZ@bnxckqizzupy4akvlyql-mysql.services.clever-cloud.com:3306/bnxckqizzupy4akvlyql"
 JWT_SECRET="claveSecreta"
 PORT=3000
 
 
-Inicializar la base de datos MySQL y crear la base gestortareasdb.
+### Inicializar la base de datos MySQL y crear la base gestortareasdb.
 
-Ejecución
-Backend
+### Ejecución
+#### Backend
 cd backend
 node app.js
 
 
-Frontend
+#### Frontend
 cd ../frontend
 npm start
 
-Sitio web disponible en: https://gestor-tareas-lucasvigueras-projects.vercel.app/home
+**Sitio web disponible en: https://gestor-tareas-lucasvigueras-projects.vercel.app/home**
 
-Endpoints principales
-Autenticación
+## Endpoints principales
+**Autenticación**
 Método	Ruta	Descripción
 POST	/auth/register	Registrar un usuario
 POST	/auth/login	Iniciar sesión
-Usuarios (solo ADMIN)
+**Usuarios (solo ADMIN)**
 Método	Ruta	Descripción
 GET	/users	Listar usuarios
 PUT	/users/:id/role	Cambiar rol de usuario
 DELETE	/users/:id	Eliminar usuario
-Tareas
+**Tareas**
 Método	Ruta	Descripción
 GET	/tasks	Listar tareas
 POST	/tasks	Crear nueva tarea
 PUT	/tasks/:id	Editar tarea existente
 DELETE	/tasks/:id	Eliminar tarea
-Pruebas Unitarias
+**Pruebas Unitarias**
 
 Actualmente no están implementadas. Se adjuntó documentación y ejemplos de pruebas en la carpeta docs.
 
-Repositorio
+## Contacto
 
-Gestor-Tareas en GitHub
-
-Contacto
-
-Para dudas o sugerencias: Lucas Viguera
+**Para dudas o consultas:** Lucas.viguera2001@gmail.com

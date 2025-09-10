@@ -1,24 +1,19 @@
 import prisma from '../../prisma/prismaClient.js';
 import { handleError } from '../utils/errorhandler.js';
 
-/**
- * GET /tasks
- * - ADMIN: devuelve TODAS las tareas
- * - USER:  devuelve SOLO las tareas asignadas al usuario autenticado
- */
 export const getTasks = async (req, res) => {
   try {
     const { role, userId } = req.user;
-
+    // Si es ADMIN, obtiene todas las tareas
+    // Si es USER, solo las tareas asignadas a él
     const whereClause =
       role === 'ADMIN'
         ? {} // todas
-        : { assignments: { some: { userId } } }; // solo asignadas al user
+        : { assignments: { some: { userId } } }; // solo las asignadas al user
 
     const tasks = await prisma.task.findMany({
       where: whereClause,
       orderBy: { id: 'desc' },
-      // opcional: incluir asignados
       include: { assignments: { include: { user: { select: { id: true, username: true } } } } }
     });
 
@@ -29,11 +24,6 @@ export const getTasks = async (req, res) => {
   }
 };
 
-/**
- * POST /tasks/create
- * - Protegido por checkAdmin en la ruta
- * - Crea tarea y asigna a 1..N usuarios (assigneeIds)
- */
 export const createTask = async (req, res) => {
   const { title, description, startDate, endDate, priority, assigneeIds = [], completed } = req.body;
 
@@ -75,12 +65,6 @@ export const createTask = async (req, res) => {
   }
 };
 
-/**
- * PUT /tasks/update/:id
- * - USER: solo puede actualizar "completed" si está asignado a la tarea
- * - ADMIN: puede actualizar "completed" de cualquier tarea
- * (ignoramos cualquier otro campo que venga en el body)
- */
 export const updateTask = async (req, res) => {
   const id = parseInt(req.params.id, 10);
   const { completed } = req.body;
@@ -114,10 +98,6 @@ export const updateTask = async (req, res) => {
   }
 };
 
-/**
- * DELETE /tasks/delete/:id
- * - Solo ADMIN (protección en la ruta)
- */
 export const deleteTask = async (req, res) => {
   const id = parseInt(req.params.id, 10);
 

@@ -1,12 +1,7 @@
-// src/controllers/userController.js
 import prisma from "../../prisma/prismaClient.js";
 import { handleError } from "../utils/errorhandler.js";
 
-/**
- * GET /users
- * Devuelve usuarios con tareas aplanadas (assignments -> tasks[])
- * Esto permite que el front consuma user.tasks directamente.
- */
+
 export const getUsers = async (_req, res) => {
   try {
     const users = await prisma.user.findMany({
@@ -44,10 +39,7 @@ export const getUsers = async (_req, res) => {
   }
 };
 
-/**
- * DELETE /users/delete/:id
- * Solo ADMIN puede eliminar usuarios.
- */
+
 export const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;

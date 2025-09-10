@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  authUrl: 'https://gestor-tareas-production.up.railway.app/auth',
-  tasksUrl: 'https://gestor-tareas-production.up.railway.app/tasks',
-  usersUrl: 'https://gestor-tareas-production.up.railway.app/users'
+  authUrl: 'https://gestor-tareas-1-imw5.onrender.com/auth',
+  tasksUrl: 'https://gestor-tareas-1-imw5.onrender.com/tasks',
+  usersUrl: 'https://gestor-tareas-1-imw5.onrender.com/users'
   };

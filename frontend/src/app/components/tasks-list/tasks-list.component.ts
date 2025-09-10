@@ -1,4 +1,3 @@
-// src/app/components/tasks-list/tasks-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../services/task.service';
@@ -15,11 +14,9 @@ import { Task } from '../../models/task.model';
 })
 export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
-  usersById = new Map<number, string>(); // id -> username (fallback para nombres)
+  usersById = new Map<number, string>(); 
   isAdmin = false;
   errorMessage: string | null = null;
-
-  // Para deshabilitar acciones por fila mientras se guarda
   busyId: number | null = null;
 
   constructor(
@@ -30,8 +27,6 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAdmin = this.auth.isAdmin();
-
-    // Cargamos usuarios para poder mostrar nombres aunque el back no incluya assignments
     this.userService.getUsers().subscribe({
       next: (users: any[]) => (users || []).forEach(u => this.usersById.set(u.id, u.username)),
       error: (_err: any) => {},
@@ -49,10 +44,6 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  /** Muestra nombres de asignados:
-   *  - Si el back envía assignments con user.username → usa eso
-   *  - Si no, intenta resolver con usersById y userId (compat.)
-   */
   displayAssignees(task: any): string {
     if (Array.isArray(task.assignments) && task.assignments.length) {
       return task.assignments
@@ -64,16 +55,14 @@ export class TaskListComponent implements OnInit {
     }
     return '—';
   }
-
-  /** Eliminar (solo ADMIN). Notifica al servicio para refrescar estadísticas. */
   deleteTask(id: number): void {
-    if (!this.isAdmin) return; // defensa en UI; el back igual valida
+    if (!this.isAdmin) return; 
 
     this.busyId = id;
     this.taskService.deleteTask(id).subscribe({
       next: () => {
         this.tasks = this.tasks.filter(t => t.id !== id);
-        this.taskService.notifyTaskChanged(); // 🔔 refrescar tablero de stats
+        this.taskService.notifyTaskChanged();
       },
       error: (err: any) => {
         console.error('Error al eliminar tarea:', err);
@@ -82,22 +71,20 @@ export class TaskListComponent implements OnInit {
       complete: () => (this.busyId = null)
     });
   }
-
-  /** Completar/Reabrir con UI optimista. Notifica a stats al terminar. */
   toggleComplete(task: Task): void {
     const previous = task.completed;
     const nextValue = previous === 1 ? 0 : 1;
 
-    this.busyId = task.id;     // 🔒 deshabilita acciones de esa fila
-    task.completed = nextValue; // ✅ UI optimista
+    this.busyId = task.id; 
+    task.completed = nextValue;
 
     this.taskService.updateTaskStatus(task.id, nextValue).subscribe({
       next: (res: any) => {
-        // Si el back devuelve { task }, sincronizamos; si no, ya quedó por optimismo
+        // Si el back devuelve { task }, sincronizamos; si no, ya está actualizado
         if (res?.task?.completed !== undefined) {
           task.completed = res.task.completed;
         }
-        this.taskService.notifyTaskChanged(); // 🔔 refrescar tablero de stats
+        this.taskService.notifyTaskChanged();
       },
       error: (err: any) => {
         // Revertir si falla (403 si el user no está asignado, por ejemplo)

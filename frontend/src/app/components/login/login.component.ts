@@ -30,7 +30,7 @@ loginForm = new FormGroup({
       const email = formData.email!;
       const password = formData.password!;
       this.loading = true;
-      this.errorMessage = null;  // Limpiar mensajes de error anteriores
+      this.errorMessage = null;  
   
       // Llamamos al servicio de login con los valores asegurados
       this.authService.login({ email, password }).subscribe({

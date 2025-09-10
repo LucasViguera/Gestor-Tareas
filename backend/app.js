@@ -12,8 +12,8 @@ const port = process.env.PORT || 3000
 
 app.use(cors({
   origin: [
-    'http://localhost:4200', 'http://127.0.0.1:4200', // Angular
-    'https://gestor-tareas-rust.vercel.app'           // tu prod actual
+    'http://localhost:4200', 
+    'https://gestor-tareas-rust.vercel.app' 
   ],
   methods: ['GET','POST','PUT','DELETE','OPTIONS'],
   allowedHeaders: ['Content-Type','Authorization'],

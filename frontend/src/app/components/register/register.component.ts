@@ -5,14 +5,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
-// Validador: password === confirmPassword
+// Validar: password === confirmPassword
 const passwordsMatch = (passCtrl: string, confirmCtrl: string): ValidatorFn => {
   return (group: AbstractControl) => {
     const a = group.get(passCtrl);
     const b = group.get(confirmCtrl);
     if (!a || !b) return null;
 
-    // si otro validador ya dejó errores en confirm, no lo pisamos
     if (b.errors && !b.errors['mismatch']) return null;
 
     if (a.value !== b.value) {
@@ -49,7 +48,6 @@ export class RegisterComponent {
     if (this.registerForm.invalid) return;
 
     const { username, email, password } = this.registerForm.value;
-    // OJO: no envíes confirmPassword al backend
     this.authService.register({ username: username!, email: email!, password: password! }).subscribe({
       next: () => {
         Swal.fire({

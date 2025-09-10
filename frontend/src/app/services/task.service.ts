@@ -9,7 +9,6 @@ import { environment } from '../../environments/environment';
 export class TaskService {
   private apiUrl = environment.tasksUrl;
 
-  // 👇 evento para notificar cambios
   private taskChangedSubject = new Subject<void>();
   taskChanged$ = this.taskChangedSubject.asObservable();
 
@@ -29,7 +28,7 @@ export class TaskService {
     return this.http.put<Task>(`${this.apiUrl}/update/${updatedTask.id}`, updatedTask);
   }
 
-  // 👉 actualizar sólo "completed"
+
   updateTaskStatus(id: number, completed: number): Observable<any> {
     return this.http.put(`${this.apiUrl}/update/${id}`, { completed }, {
       headers: { 'Content-Type': 'application/json' }
@@ -40,7 +39,6 @@ export class TaskService {
     return this.http.delete(`${this.apiUrl}/delete/${taskId}`);
   }
 
-  // 👇 llamar después de crear/editar/borrar
   notifyTaskChanged() {
     this.taskChangedSubject.next();
   }

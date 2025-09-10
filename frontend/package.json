@@ -25,7 +25,6 @@
     "bootstrap": "^5.3.3",
     "d3": "^7.9.0",
     "date-fns": "^4.1.0",
-    "http": "^0.0.1-security",
     "jwt-decode": "^4.0.0",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.17.2",

@@ -1,29 +1,29 @@
 /* Estilos generales para el navbar */
 .navbar {
-    background-color: #333; /* Gris oscuro para el fondo del navbar */
+    background-color: #333; 
     font-family: 'Roboto', sans-serif;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 }
 
 /* Estilo de los enlaces */
 .navbar-dark .navbar-nav .nav-link {
-    color: #F1F1F1; /* Blanco suave para los enlaces */
+    color: #F1F1F1; 
     font-weight: 500;
     font-size: 1rem;
-    transition: color 0.3s ease, transform 0.3s ease; /* Transición suave */
-    padding: 10px 15px; /* Añadido padding para alinear */
+    transition: color 0.3s ease, transform 0.3s ease; 
+    padding: 10px 15px; 
 }
 
 /* Color de los enlaces cuando están activos */
 .navbar-dark .navbar-nav .nav-link.active {
-    color: #8D8D8D; /* Gris más oscuro para el enlace activo */
+    color: #8D8D8D; 
 }
 
 /* Hover en los enlaces */
 .navbar-dark .navbar-nav .nav-link:hover {
-    color: #5A5A5A; /* Gris intermedio en hover */
-    transform: scale(1.05); /* Efecto de zoom */
+    color: #5A5A5A; 
+    transform: scale(1.05); 
 }
 
 /* Estilo del logo */
@@ -32,41 +32,41 @@
     align-items: center;
     font-size: 1.25rem;
     font-weight: 600;
-    color: #F1F1F1; /* Blanco suave para el texto del logo */
+    color: #F1F1F1; 
     transition: color 0.3s ease;
 }
 
 /* Efecto hover en el logo */
 .navbar .navbar-brand:hover {
-    color: #D1D1D1; /* Gris muy suave en hover */
+    color: #D1D1D1; 
 }
 
 /* Estilo del botón Cerrar sesión */
 .navbar-dark .navbar-nav .logout-btn {
-    color: #FF5A5F; /* Rojo suave para destacar el botón */
+    color: #FF5A5F; 
     font-weight: 500;
     font-size: 1rem;
     transition: color 0.3s ease, transform 0.3s ease;
     background: none;
     border: none;
-    padding: 10px 15px; /* Igual que los otros botones */
+    padding: 10px 15px; 
     text-decoration: none;
-    display: inline-block; /* Para que se vea igual que los enlaces */
-    margin-left: 10px; /* Añadimos margen izquierdo para separación */
+    display: inline-block; 
+    margin-left: 10px; 
     cursor: pointer;
 }
 
 /* Hover en el botón de cerrar sesión */
 .navbar-dark .navbar-nav .logout-btn:hover {
-    color: #D33F49; /* Rojo más oscuro en hover */
-    transform: scale(1.05); /* Efecto de zoom */
+    color: #D33F49; 
+    transform: scale(1.05); 
 }
 /* Botón de menú en dispositivos móviles */
 .navbar-toggler {
     border: none;
-    background-color: #555; /* Gris medio, más profesional y menos agresivo */
-    border-radius: 4px; /* Bordes ligeramente redondeados */
-    padding: 8px 12px; /* Ajusta el padding según necesites */
+    background-color: #555; 
+    border-radius: 4px; 
+    padding: 8px 12px; 
 }
 
 /* Ícono del menú personalizado */
@@ -82,10 +82,10 @@
 /* Estilo del navbar en dispositivos pequeños */
 @media (max-width: 768px) {
     .navbar-collapse {
-        background-color: #333; /* Fondo gris oscuro para el menú en dispositivos pequeños */
+        background-color: #333; 
     }
     .navbar-nav {
-        flex-direction: column; /* Columna en lugar de fila */
+        flex-direction: column; 
         align-items: center;
     }
     .nav-item {

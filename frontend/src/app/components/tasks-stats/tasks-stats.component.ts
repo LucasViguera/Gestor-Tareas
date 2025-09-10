@@ -1,4 +1,3 @@
-// src/app/components/tasks-stats/tasks-stats.component.ts
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -29,8 +28,6 @@ export class TasksStatsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadUserStats();
-
-    // 🔔 refrescar automáticamente cuando cambian tareas
     this.sub = this.taskService.taskChanged$.subscribe(() => this.loadUserStats());
   }
 
@@ -39,18 +36,14 @@ export class TasksStatsComponent implements OnInit, OnDestroy {
   }
 
   loadUserStats(): void {
-    // reiniciar totales antes de acumular
     this.totalTasks = 0;
     this.completedTasks = 0;
-
-    // Nota: el Authorization ya lo agrega tu interceptor
     this.http.get<User[]>(this.apiUrl).subscribe({
       next: (data: User[]) => {
         this.usersStats = (data || []).map(user => {
           const tasksArray: Task[] = user.tasks ?? [];
 
           const total = tasksArray.length;
-          // 👇 completed es 0/1, contemos sólo cuando === 1
           const completed = tasksArray.filter(t => t.completed === 1).length;
           const pending = total - completed;
 

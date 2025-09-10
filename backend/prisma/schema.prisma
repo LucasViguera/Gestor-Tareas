@@ -1,31 +1,40 @@
-generator client { provider = "prisma-client-js" } 
-datasource db { provider = "mysql" url = env("DATABASE_URL") } 
+generator client {
+  provider = "prisma-client-js"
+}
 
-model task { 
-  id Int @id @default(autoincrement()) 
-  title String 
-  description String 
-  endDate DateTime 
-  priority String 
-  startDate DateTime 
-  completed Int @default(0) 
-  assignments taskAssignment[] 
-  } 
-  
-model user { 
-  id Int @id @default(autoincrement()) 
-  email String @unique(map: "User_email_key") 
-  password String createdAt 
-  DateTime @default(now()) 
-  updatedAt DateTime @updatedAt 
-  username String 
-  role String @default("USER") 
-  assignments taskAssignment[] 
-  } 
-  
-model taskAssignment { 
-  taskId Int 
-  userId Int 
-  task task @relation(fields: [taskId], references: [id], onDelete: Cascade) 
-  user user @relation(fields: [userId], references: [id], onDelete: Cascade) @@id([taskId, userId]) 
-  }
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model task {
+  id          Int              @id @default(autoincrement())
+  title       String
+  description String
+  startDate   DateTime
+  endDate     DateTime
+  priority    String
+  completed   Int              @default(0)
+  assignments taskAssignment[]
+}
+
+model user {
+  id        Int              @id @default(autoincrement())
+  email     String           @unique
+  password  String
+  username  String
+  role      String           @default("USER")
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  assignments taskAssignment[]
+}
+
+model taskAssignment {
+  taskId Int
+  userId Int
+
+  task task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  user user @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([taskId, userId])
+}

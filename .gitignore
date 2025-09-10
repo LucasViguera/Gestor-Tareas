@@ -22,7 +22,6 @@ dist/
 
 
 # Ignorar otros archivos personales
-*.pdf
 *.docx
 *.xlsx
 *.mdf

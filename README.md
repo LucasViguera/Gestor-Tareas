@@ -52,7 +52,7 @@ La plataforma está diseñada para ser segura, escalable y fácil de mantener.
 
 - DATABASE_URL="mysql://uwzaec7mqimymo3p:M42PFCQTRbR5p86hMYrZ@bnxckqizzupy4akvlyql-mysql.services.clever-cloud.com:3306/bnxckqizzupy4akvlyql"
 - JWT_SECRET="claveSecreta"
-PORT=3000
+- PORT=3000
 
 
 ### Inicializar la base de datos MySQL y crear la base gestortareasdb.
@@ -67,7 +67,7 @@ PORT=3000
 - cd ../frontend
 - ng serve
 
-**Sitio web disponible en: https://gestor-tareas-lucasvigueras-projects.vercel.app**
+**Sitio web disponible en: https://gestor-tareas-lucasvigueras-projects.vercel.app/**
 
 ## Contacto
 

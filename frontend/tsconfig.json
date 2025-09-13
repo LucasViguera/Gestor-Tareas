@@ -10,8 +10,8 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,   // Agregado para permitir importar correctamente
-    "moduleResolution": "node",             // Cambiado de "bundler" a "node"
+    "allowSyntheticDefaultImports": true, 
+    "moduleResolution": "node",             
     "importHelpers": true,
     "target": "ES2022",
     "module": "ESNext"

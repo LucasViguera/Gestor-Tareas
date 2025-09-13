@@ -31,8 +31,6 @@ loginForm = new FormGroup({
       const password = formData.password!;
       this.loading = true;
       this.errorMessage = null;  
-  
-      // Llamamos al servicio de login con los valores asegurados
       this.authService.login({ email, password }).subscribe({
         next: (response) => {
           console.log('Inicio de sesión exitoso', response);

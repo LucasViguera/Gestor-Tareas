@@ -13,7 +13,8 @@ const port = process.env.PORT || 3000
 app.use(cors({
   origin: [
     'http://localhost:4200', 
-    'https://gestor-tareas-lucasvigueras-projects.vercel.app'
+    'https://gestor-tareas-lucasvigueras-projects.vercel.app',
+    'https://gestor-tareas-rust.vercel.app'
   ],
   methods: ['GET','POST','PUT','DELETE','OPTIONS'],
   allowedHeaders: ['Content-Type','Authorization'],

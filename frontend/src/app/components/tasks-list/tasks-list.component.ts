@@ -43,15 +43,12 @@ export class TaskListComponent implements OnInit {
       }
     });
   }
-
+  
   displayAssignees(task: any): string {
     if (Array.isArray(task.assignments) && task.assignments.length) {
       return task.assignments
-        .map((a: any) => a.user?.username || this.usersById.get(a.userId) || `#${a.userId}`)
+        .map((a: any) => a.user?.username || `#${a.userId}`)
         .join(', ');
-    }
-    if (typeof (task as any).assigneeId === 'number') {
-      return this.usersById.get((task as any).assigneeId) || `#${(task as any).assigneeId}`;
     }
     return '—';
   }
@@ -61,7 +58,7 @@ export class TaskListComponent implements OnInit {
     this.busyId = id;
     this.taskService.deleteTask(id).subscribe({
       next: () => {
-        this.tasks = this.tasks.filter(t => t.id !== id);
+        this.loadTasks(); 
         this.taskService.notifyTaskChanged();
       },
       error: (err: any) => {
